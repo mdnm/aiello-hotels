@@ -1,50 +1,155 @@
 ---
+import { Image } from "astro:assets";
+import { ChevronDown, Mail, Phone } from "lucide-react";
+
+type Locales = "it_IT" | "en_GB" | "fr_FR" | "es_ES";
 interface Props {
 	title: string;
+	description: string;
+	locale?: Locales
 }
 
-const { title } = Astro.props;
+const { title, description, locale = "it_IT" } = Astro.props;
+
+const localeToUrlSuffix: Record<Locales, string> = {
+	"it_IT": "",
+	"en_GB": "en",
+	"fr_FR": "fr",
+	"es_ES": "es",
+};
+
+const replaceUrlWithLocale = (url: string, locale: Locales) => {
+	const urlSuffix = localeToUrlSuffix[locale];
+
+	return url.replace(/\/(en|fr|es)?$/, `/${urlSuffix}`);
+};
+
+const BASE_URL = Astro.url.origin;
+
+const getRouteWithLocale = (route: string) => {
+	const urlSuffix = localeToUrlSuffix[locale] ? `/${localeToUrlSuffix[locale]}` : '';
+
+	return `${BASE_URL}${urlSuffix}${route}`
+}
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
 	<head>
+		<link rel="canonical" href={Astro.url} />
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link rel="preconnect" href="https://www.google-analytics.com" />
+
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		<meta property="og:locale" content={locale} />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:site_name" content={"Aiello Hotels"} />
+
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+		<link rel="icon" href="https://www.aiellohotels.com/wp-content/uploads/2021/05/cropped-logo-aiello-hotels-ico-32x32.jpg" sizes="32x32" />
+		<link rel="icon" href="https://www.aiellohotels.com/wp-content/uploads/2021/05/cropped-logo-aiello-hotels-ico-192x192.jpg" sizes="192x192">
+		<link rel="apple-touch-icon" href="https://www.aiellohotels.com/wp-content/uploads/2021/05/cropped-logo-aiello-hotels-ico-180x180.jpg">
+		<meta name="msapplication-TileImage" content="https://www.aiellohotels.com/wp-content/uploads/2021/05/cropped-logo-aiello-hotels-ico-270x270.jpg">
+
 		<meta name="generator" content={Astro.generator} />
+
 		<title>{title}</title>
 	</head>
 	<body>
+		<div class="w-full grid place-items-center fixed py-2 h-10 bg-primary text-white">
+			<div class="w-full max-w-screen-lg flex flex-row justify-between items-center">
+				<div class="flex flex-row items-center gap-4">
+					<a class="flex flex-row items-center gap-2 hover:brightness-90 transition-all duration-200" href="tel:+39036556377" target="_blank">
+						<Phone className="w-5 h-5 text-primary" fill="white" />
+						<span class="text-sm">
+							+39 02 36556377
+						</span>
+					</a>
+					<a class="flex flex-row items-center gap-2 hover:brightness-90 transition-all duration-200" href="mailto:info@aiellohotels.com" target="_blank">
+						<Mail className="w-5 h-5 text-primary" fill="white" />
+						<span class="text-sm">
+							info@aiellohotels.com
+						</span>
+					</a>
+				</div>
+				<div class="flex flex-row items-center gap-4">
+					<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "it_IT")}`}>
+						🇮🇹
+					</a>
+					<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "en_GB")}`}>
+						🇬🇧
+					</a>
+					<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "fr_FR")}`}>
+						🇫🇷
+					</a>
+					<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "es_ES")}`}>
+						🇪🇸
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="w-full grid place-items-center fixed top-10 bg-white">
+			<div class="w-full max-w-screen-lg flex flex-row justify-between items-center">
+				<Image src="https://www.aiellohotels.com/wp-content/uploads/2021/05/logo_aiello-hotels.jpg" alt="Aiello Hotels Milano" width={50} height={50} />
+				<div class="flex flex-row items-center gap-4">
+					<a href={getRouteWithLocale("/")} class="text-primary py-5 hover:brightness-75 transition duration-200">
+						Home
+					</a>
+					<div class="relative group">
+						<span class="text-gray-400 inline-flex items-center gap-2 cursor-pointer hover:brightness-75 transition duration-200">
+							Dove siamo <ChevronDown className="w-4 h-4" />
+						</span>	
+						<div class="hidden group-hover:block group-hover:delay-150 transition-all duration-200 absolute top-6 right-0 w-max bg-white shadow-md rounded-md border-t-4 border-t-primary py-2 px-3">
+							<ul class="flex flex-col gap-3 text-primary font-semibold">
+								<li>
+									<a href={getRouteWithLocale("/san-babila")} class="hover:brightness-90 transition-all duration-200">
+										Aiello Rooms – San Babila, Centro Storico
+									</a>
+								</li>
+								<li>
+									<a href={getRouteWithLocale("/duomo")} class="hover:brightness-90 transition-all duration-200">
+										Aiello Hotels – Duomo, Centro Storico
+									</a>
+								</li>
+								<li>
+									<a href={getRouteWithLocale("/stazione-centrale")} class="hover:brightness-90 transition-all duration-200">
+										Aiello Hotels – Centrale, Stazione Centrale
+									</a>
+								</li>
+								<li>
+									<a href={getRouteWithLocale("/via-palmieri")} class="hover:brightness-90 transition-all duration-200">
+										Aiello Suites Executive, Navigli
+									</a>
+								</li>
+								<li>
+									<a href={getRouteWithLocale("/via-montegani")} class="hover:brightness-90 transition-all duration-200">
+										Aiello Suites Milan, Navigli
+									</a>
+								</li>
+								<li>
+									<a href={getRouteWithLocale("/via-ausonio")} class="hover:brightness-90 transition-all duration-200">
+										Aiello Rooms, Centro Città
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<slot />
 	</body>
 </html>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+	@tailwind base;
+	@tailwind components;
+	@tailwind utilities;
 </style>
