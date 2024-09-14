@@ -1,0 +1,405 @@
+---
+import { Image } from 'astro:assets';
+import { Baby, BathIcon, BedDouble, BusFront, CalendarCheck, ChevronRight, Coffee, Luggage, ParkingCircle, PawPrint, Phone, Plane } from 'lucide-react';
+import { GoogleMap } from '../components/GoogleMap.tsx';
+import { ImageGallery } from '../components/ImageGallery.tsx';
+import Layout from '../layouts/Layout.astro';
+
+const locations = [
+  { 
+    lat: 45.467040,
+    lng: 9.197540,
+    title: 'Aiello Rooms - San Babila',
+    address: 'Piazza San Babila, 5 - Nel cuore della moda',
+    path: '/san-babila',
+    image: 'https://www.aiellohotels.com/wp-content/uploads/2021/03/san-Babila_-10-copia-3-300x203.jpg',
+  },
+];
+
+---
+
+<Layout 
+  title="Aiello Rooms - San Babila Milano - Tariffa scontata del 10%"
+  description="Aiello Rooms - San Babila Milano - Tariffa scontata del 10% rispetto a qualsiasi sito di prenotazione - Cancellazione gratuita - Nessuna penale. Soggiorna in tutta sicurezza."
+  locale="it_IT"
+  includeContactForm
+>
+  <div class="bg-hero w-full flex flex-col items-center gap-10 text-white text-center pt-10 pb-44 z-0">
+    <h1 class="text-3xl md:text-5xl font-serif text-secondary uppercase">Aiello Rooms<br/>San Babila</h1>
+    <p class="text-xl md:text-3xl font-thin">Nel vero cuore di Milano</p>
+    <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group">
+      Verifica Disponibilità
+      <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+    </a>
+    <div class="pattern"></div>
+  </div>
+  <div class="w-full bg-primary text-secondary text-center py-7">
+    <p class="text-xl md:text-4xl mb-1">La posizione di Aiello Rooms – San Babila:</p>
+    <p class="text-lg md:text-3xl">Piazza San Babila, 5 – 20123 Milano</p>
+  </div>
+  <GoogleMap client:load locations={locations} />
+  <div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">Cosa amano gli ospiti di Aiello Rooms – San Babila</p>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      Vista
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          Dalle camere dell’ Aiello Rooms – San Babila la vista è spettacolare, direttamente sulla piazza e sulla basilica. Sembra di essere “dentro” la piazza. Davvero scenografico dormire, stare a letto e avere una vista così.
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          Paul, Australia <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/booking-60-1.png" alt="Booking.com" width={32} height={32} />
+        </p>
+      </div>
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-3-copia.jpg" alt="san Babila vista" srcset="https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-3-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-3-copia-480x325.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 850px, 100vw">
+      </div>
+    </div>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      Camere
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-6-copia.jpg" alt="san Babila camere" srcset="https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-6-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-6-copia-480x325.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 850px, 100vw">
+      </div>
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          Camera da letto e bagno moderni, pulitissimi e di design.
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          Gilbert, Francia <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/tripadvisor-50-1.png" alt="Trip advisor" width={32} height={32} />
+        </p>
+      </div>
+    </div>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      Posizione
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          Aiello Rooms – San Babila è ubicata nel quadrilatero della moda, in pienissimo centro, poche centinaia di metri dal Duomo e dalla galleria, e 20 metri da via monte napoleone. Nella piena movida Milanese. Immersi tra tantissimi negozi che vendono tutte le marche più famose al mondo.
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          Michele, Italia <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/tripadvisor-50-1.png" alt="Trip advisor" width={32} height={32} />
+        </p>
+      </div>
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-11-copia.jpg" alt="san Babila posizione" srcset="https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-11-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-11-copia-480x325.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 850px, 100vw">
+      </div>
+    </div>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      Accoglienza
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-copia.jpg" alt="san Babila accoglienza" srcset="https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-copia-480x325.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 850px, 100vw">
+      </div>
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          Non avremmo potuto scegliere un posto migliore di Aiello Rooms – San Babila in cui soggiornare a Milano. La signora alla reception era una delle persone più gentili che abbia mai incontrato in tutta la mia vita.
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          Lai, Stati Uniti d’America <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/booking-60-1.png" alt="Booking.com" width={32} height={32} />
+        </p>
+      </div>
+    </div>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      Pulizia
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          La camera era immacolata, pulitissima, nuova e moderna, con una splendida vista sulla piazza San Babila.
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          Steven, Stati Uniti d’America <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/booking-60-1.png" alt="Booking.com" width={32} height={32} />
+        </p>
+      </div>
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2020/10/Pulizia-300x200-1.jpg" alt="san Babila accoglienza" srcset="https://www.aiellohotels.com/wp-content/uploads/2020/10/Pulizia-300x200-1.jpg 1024w, https://www.aiellohotels.com/wp-content/uploads/2020/10/Pulizia-300x200-1-980x654.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2020/10/Pulizia-300x200-1-480x320.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 850px, 100vw">
+      </div>
+    </div>
+  </div>
+  <div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">Scegli la tipologia di camera</p>
+    <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md">
+      <ImageGallery 
+        client:load
+        images={[
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia-480x325.jpg 480w"
+          },
+        ]}
+        className="flex-1"
+      />
+      <div class="flex flex-col items-center gap-8 flex-1">
+        <p class="text-xl md:text-3xl text-secondary">
+          Camera Standard
+        </p>
+        <div class="flex flex-col gap-1 max-w-[270px] text-base md:text-xl text-white">
+          <p>
+            Letto matrimoniale o letti singoli
+          </p>
+          <p>
+            Vista panoramica sulla piazza
+          </p>
+          <p>
+            Dimensioni: 23 m²
+          </p>
+        </div>
+        <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
+          Verifica Disponibilità
+          <ChevronRight className="w-0 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+        </a>
+      </div>
+    </div> 
+    <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md">
+      <ImageGallery 
+        client:load
+        images={[
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia-480x325.jpg 480w"
+          },
+        ]}
+        className="flex-1"
+      />
+      <div class="flex flex-col items-center gap-8 flex-1">
+        <p class="text-xl md:text-3xl text-secondary">
+          Camera Superior
+        </p>
+        <div class="flex flex-col gap-1 max-w-[270px] text-base md:text-xl text-white">
+          <p>
+            Doppia vista angolare sulla piazza
+          </p>
+          <p>
+            Letto matrimoniale o letti singoli
+          </p>
+          <p>
+            Poltrona e angolo lettura
+          </p>
+          <p>
+            Dimensioni: 29 m²
+          </p>
+        </div>
+        <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
+          Verifica Disponibilità
+          <ChevronRight className="w-0 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+        </a>
+      </div>
+    </div> 
+    <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md">
+      <ImageGallery 
+        client:load
+        images={[
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia-480x325.jpg 480w"
+          },
+        ]}
+        className="flex-1"
+      />
+      <div class="flex flex-col items-center gap-8 flex-1">
+        <p class="text-xl md:text-3xl text-secondary">
+          Camera Budget
+        </p>
+        <div class="flex flex-col gap-1 max-w-[270px] text-base md:text-xl text-white">
+          <p>
+            Vista sulla piazza
+          </p>
+          <p>
+            Letto matrimoniale
+          </p>
+          <p>
+            Dimensioni: 19 m²
+          </p>
+        </div>
+        <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
+          Verifica Disponibilità
+          <ChevronRight className="w-0 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+        </a>
+      </div>
+    </div> 
+  </div> 
+  <div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">Cosa troverai in camera</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 justify-items-center rounded-md px-4 py-6 w-full max-w-screen-md">
+      <div class="flex flex-col gap-3 flex-1">
+        <BedDouble className="w-16 h-16 text-primary" />
+        <p class="text-xl text-primary font-semibold">
+          Camera da letto
+        </p>
+        <div class="flex flex-col md:flex-row gap-5">
+          <ul class="list-disc pl-4">
+            <li>Wi-fi super fast gratuito</li>
+            <li>A/c</li>
+            <li>Minibar + Welcoming drink</li>
+            <li>Bollitore</li>
+            <li>Smart tv ultra hd</li>
+            <li>Cassetta di sicurezza</li>
+          </ul>
+          <ul class="list-disc pl-4">
+            <li>Scrittoio/angolo lavoro</li>
+            <li>Prese usb</li>
+            <li>Mix di cuscini</li>
+            <li>Pouf</li>
+            <li>Insonorizzazione</li>
+            <li>Vista panoramica</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex flex-col gap-3 flex-1">
+        <BathIcon className="w-16 h-16 text-primary" />
+        <p class="text-xl text-primary font-semibold">
+          Bagno
+        </p>
+        <ul class="list-disc pl-4">
+          <li>Courtesy set completo</li>
+          <li>Pantofole</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">Informazioni utili per il soggiorno all'Aiello Rooms – San Babila</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-8 justify-items-center rounded-md px-4 py-6 w-full max-w-screen-xl">
+      <div class="flex flex-col items-center text-center gap-2 sm:col-span-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <CalendarCheck className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">Check-in e Check-out</p>
+        <Image src="https://www.aiellohotels.com/wp-content/uploads/2021/03/arrivi-partenze-1.jpg" alt="orari-arrivo-partenza" width="632" height="192" class="w-[600px]" />
+        <p class="text-gray-500 text-base">
+          ARRIVO dalle 14:30
+        </p>
+        <ul class="text-gray-500">
+          <li>Arrivo anticipato disponibile gratuitamente in base a disponibilità</li>
+          <li>Self service check in disponibile</li>
+        </ul>
+        <p class="text-gray-500 text-base">
+          PARTENZA fino alle 11:00
+        </p>
+        <ul class="text-gray-500">
+          <li>Partenza ritardata disponibile fino alle 13:30 con un supplemento del 15% della tariffa giornaliera</li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <Coffee className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">Colazione</p>
+        <p class="text-gray-500 text-base">
+          Dalle ore 07:00 alle 11:30 presso il famoso Café San Babila
+        </p>
+        <ul class="text-gray-500">
+          <li>Colazione in camera disponibile senza supplemento</li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <ParkingCircle className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">Parcheggio convenzionato</p>
+        <p class="text-gray-500 text-base">
+          Parcheggio Matteotti
+        </p>
+        <p class="text-gray-500 text-base">
+          Via San Pietro all’Orto, 8 (150 mt)
+        </p>
+        <p class="text-gray-500 text-base">
+          07:00 – 02:00
+        </p>
+        <p class="text-gray-500 text-base">
+          € 25,00 al giorno
+        </p>
+        <a href="tel:+390276000795" class="text-primary text-base font-bold flex flex-row items-center gap-1">
+          <Phone className="w-5 h-5 text-primary" />
+          +39 02 7600 0795
+        </a>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <BusFront className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">Trasporti</p>
+        <p class="text-gray-500 text-base">
+          Stazione metro:<br/>Metro rossa M1 SAN BABILA
+        </p>
+        <p class="text-gray-500 text-base">
+          Da Aeroporto di Malpensa:<br/>Malpensa Express fino a stazione CADORNA<br/>Metro rossa M1 fino a fermata SAN BABILA
+        </p>
+        <p class="text-gray-500 text-base">
+          Da Aeroporto di Bergamo:<br/>Orio Shuttle fino a stazione CENTRALE<br/>Metro verde M2 fino a fermata LORETO<br/>Metro rossa M1 fino a fermata SAN BABILA
+        </p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <Plane className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">Navetta Aeroporto</p>
+        <p class="text-gray-500 text-base">
+          Prenotazione necessaria
+        </p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <Luggage className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">Deposito Bagagli</p>
+        <p class="text-gray-500 text-base">
+          Gratuito
+        </p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <Baby className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">Culla</p>
+        <p class="text-gray-500 text-base">
+          Disponibile con un supplemento
+        </p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <PawPrint className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">Animali</p>
+        <p class="text-gray-500 text-base">
+          Accogliamo animali da compagnia di piccola taglia con un piccolo supplemento legato alla necessità di trattamenti antiallergeni alla partenza
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit mx-auto">
+    Verifica Disponibilità
+    <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+  </a>
+</Layout>
+
+<style>
+  .bg-hero {
+    @apply bg-cover bg-no-repeat relative;
+		background-image: linear-gradient(180deg, #063661 0%,rgba(43,78,136,0.67) 54%), url("https://www.aiellohotels.com/wp-content/uploads/2020/10/san-babila-superior-2.jpg");
+    background-position: 50%;
+	}
+
+  .pattern {
+    @apply absolute mt-auto w-full bottom-0 h-[100px] bg-no-repeat bg-cover z-[1] scale-y-[-1] scale-x-[1];
+    background-size: 100% 100px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDBweCIgdmlld0JveD0iMCAwIDEyODAgMTQwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGZpbGw9IiNjNDk5NmMiPjxwYXRoIGQ9Ik0xMjgwIDE0MFYwSDBsMTI4MCAxNDB6IiBmaWxsLW9wYWNpdHk9Ii41Ii8+PHBhdGggZD0iTTEyODAgOThWMEgwbDEyODAgOTh6Ii8+PC9nPjwvc3ZnPg==);
+  }
+</style>

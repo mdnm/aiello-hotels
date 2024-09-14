@@ -1,36 +1,20 @@
 ---
 import { Image } from "astro:assets";
 import { ChevronDown, Mail, Phone } from "lucide-react";
+import { MobileMenu } from '../components/MobileMenu.tsx';
+import { commons } from "../utils/commons";
+import { getRouteWithLocale, replaceUrlWithLocale, type Locales } from "../utils/url";
 
-type Locales = "it_IT" | "en_GB" | "fr_FR" | "es_ES";
 interface Props {
 	title: string;
 	description: string;
-	locale?: Locales
+	locale?: Locales;
+	includeContactForm?: boolean;
 }
 
-const { title, description, locale = "it_IT" } = Astro.props;
-
-const localeToUrlSuffix: Record<Locales, string> = {
-	"it_IT": "",
-	"en_GB": "en",
-	"fr_FR": "fr",
-	"es_ES": "es",
-};
-
-const replaceUrlWithLocale = (url: string, locale: Locales) => {
-	const urlSuffix = localeToUrlSuffix[locale];
-
-	return url.replace(/\/(en|fr|es)?$/, `/${urlSuffix}`);
-};
+const { title, description, locale = "it_IT", includeContactForm = false } = Astro.props;
 
 const BASE_URL = Astro.url.origin;
-
-const getRouteWithLocale = (route: string) => {
-	const urlSuffix = localeToUrlSuffix[locale] ? `/${localeToUrlSuffix[locale]}` : '';
-
-	return `${BASE_URL}${urlSuffix}${route}`
-}
 ---
 
 <!doctype html>
@@ -62,90 +46,159 @@ const getRouteWithLocale = (route: string) => {
 
 		<title>{title}</title>
 	</head>
-	<body>
-		<div class="w-full grid place-items-center fixed py-2 h-10 bg-primary text-white">
-			<div class="w-full max-w-screen-lg flex flex-row justify-between items-center">
-				<div class="flex flex-row items-center gap-4">
-					<a class="flex flex-row items-center gap-2 hover:brightness-90 transition-all duration-200" href="tel:+39036556377" target="_blank">
-						<Phone className="w-5 h-5 text-primary" fill="white" />
-						<span class="text-sm">
-							+39 02 36556377
-						</span>
-					</a>
-					<a class="flex flex-row items-center gap-2 hover:brightness-90 transition-all duration-200" href="mailto:info@aiellohotels.com" target="_blank">
-						<Mail className="w-5 h-5 text-primary" fill="white" />
-						<span class="text-sm">
-							info@aiellohotels.com
-						</span>
-					</a>
-				</div>
-				<div class="flex flex-row items-center gap-4">
-					<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "it_IT")}`}>
-						🇮🇹
-					</a>
-					<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "en_GB")}`}>
-						🇬🇧
-					</a>
-					<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "fr_FR")}`}>
-						🇫🇷
-					</a>
-					<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "es_ES")}`}>
-						🇪🇸
-					</a>
-				</div>
-			</div>
-		</div>
-		<div class="w-full grid place-items-center fixed top-10 bg-white">
-			<div class="w-full max-w-screen-lg flex flex-row justify-between items-center">
-				<Image src="https://www.aiellohotels.com/wp-content/uploads/2021/05/logo_aiello-hotels.jpg" alt="Aiello Hotels Milano" width={50} height={50} />
-				<div class="flex flex-row items-center gap-4">
-					<a href={getRouteWithLocale("/")} class="text-primary py-5 hover:brightness-75 transition duration-200">
-						Home
-					</a>
-					<div class="relative group">
-						<span class="text-gray-400 inline-flex items-center gap-2 cursor-pointer hover:brightness-75 transition duration-200">
-							Dove siamo <ChevronDown className="w-4 h-4" />
-						</span>	
-						<div class="hidden group-hover:block group-hover:delay-150 transition-all duration-200 absolute top-6 right-0 w-max bg-white shadow-md rounded-md border-t-4 border-t-primary py-2 px-3">
-							<ul class="flex flex-col gap-3 text-primary font-semibold">
-								<li>
-									<a href={getRouteWithLocale("/san-babila")} class="hover:brightness-90 transition-all duration-200">
-										Aiello Rooms – San Babila, Centro Storico
-									</a>
-								</li>
-								<li>
-									<a href={getRouteWithLocale("/duomo")} class="hover:brightness-90 transition-all duration-200">
-										Aiello Hotels – Duomo, Centro Storico
-									</a>
-								</li>
-								<li>
-									<a href={getRouteWithLocale("/stazione-centrale")} class="hover:brightness-90 transition-all duration-200">
-										Aiello Hotels – Centrale, Stazione Centrale
-									</a>
-								</li>
-								<li>
-									<a href={getRouteWithLocale("/via-palmieri")} class="hover:brightness-90 transition-all duration-200">
-										Aiello Suites Executive, Navigli
-									</a>
-								</li>
-								<li>
-									<a href={getRouteWithLocale("/via-montegani")} class="hover:brightness-90 transition-all duration-200">
-										Aiello Suites Milan, Navigli
-									</a>
-								</li>
-								<li>
-									<a href={getRouteWithLocale("/via-ausonio")} class="hover:brightness-90 transition-all duration-200">
-										Aiello Rooms, Centro Città
-									</a>
-								</li>
-							</ul>
-						</div>
+	<body class="pt-[104px]">
+		<header>
+			<div class="z-50 w-full grid place-items-center fixed top-0 py-2 md:max-h-10 bg-primary text-white">
+				<div class="w-full max-w-screen-lg flex flex-col md:flex-row justify-between items-center">
+					<div class="flex flex-col md:flex-row justify-center md:justify-normal items-center gap-4">
+						<a class="flex flex-row items-center gap-2 hover:brightness-90 transition-all duration-200" href={`tel:${commons.contactPhone.link}`}target="_blank">
+							<Phone className="w-5 h-5 text-primary" fill="white" />
+							<span class="text-sm">
+								{commons.contactPhone.formatted}
+							</span>
+						</a>
+						<a class="flex flex-row items-center gap-2 hover:brightness-90 transition-all duration-200" href={`mailto:${commons.contactEmail}`}target="_blank">
+							<Mail className="w-5 h-5 text-primary" fill="white" />
+							<span class="text-sm">
+								{commons.contactEmail}
+							</span>
+						</a>
+					</div>
+					<div class="hidden md:flex flex-row items-center gap-4">
+						<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "it_IT")}`}>
+							🇮🇹
+						</a>
+						<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "en_GB")}`}>
+							🇬🇧
+						</a>
+						<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "fr_FR")}`}>
+							🇫🇷
+						</a>
+						<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "es_ES")}`}>
+							🇪🇸
+						</a>
 					</div>
 				</div>
 			</div>
-		</div>
-
+			<div class="z-40 w-full grid place-items-center fixed top-[4.5rem] md:top-10 bg-white">
+				<div class="relative w-full max-w-screen-lg flex flex-row justify-between items-center px-2 pb-1 md:p-0">
+					<Image src="https://www.aiellohotels.com/wp-content/uploads/2021/05/logo_aiello-hotels.jpg" alt="Aiello Hotels Milano" width={50} height={50} />
+					<nav class="hidden md:flex flex-row items-center gap-4">
+						<a href={getRouteWithLocale(BASE_URL, locale, "/")} class="text-primary py-5 hover:brightness-200 transition duration-200">
+							Home
+						</a>
+						<div class="relative group">
+							<span class="text-gray-400 inline-flex items-center gap-2 cursor-pointer hover:brightness-75 transition duration-200">
+								Dove siamo <ChevronDown className="w-4 h-4" />
+							</span>	
+							<div class="hidden group-hover:block group-hover:delay-150 transition-all duration-200 absolute top-6 right-0 w-max bg-white shadow-md rounded-md border-t-4 border-t-primary py-2 px-3">
+								<ul class="flex flex-col gap-3 text-primary font-semibold">
+									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
+										<a href={getRouteWithLocale(BASE_URL, locale, "/san-babila")} class="w-full">
+											Aiello Rooms – San Babila, Centro Storico
+										</a>
+									</li>
+									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
+										<a href={getRouteWithLocale(BASE_URL, locale, "/duomo")} class="w-full">
+											Aiello Hotels – Duomo, Centro Storico
+										</a>
+									</li>
+									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
+										<a href={getRouteWithLocale(BASE_URL, locale, "/stazione-centrale")} class="w-full">
+											Aiello Hotels – Centrale, Stazione Centrale
+										</a>
+									</li>
+									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
+										<a href={getRouteWithLocale(BASE_URL, locale, "/via-palmieri")} class="w-full">
+											Aiello Suites Executive, Navigli
+										</a>
+									</li>
+									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
+										<a href={getRouteWithLocale(BASE_URL, locale, "/via-montegani")} class="w-full">
+											Aiello Suites Milan, Navigli
+										</a>
+									</li>
+									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
+										<a href={getRouteWithLocale(BASE_URL, locale, "/via-ausonio")} class="w-full">
+											Aiello Rooms, Centro Città
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</nav>
+					<MobileMenu client:load baseUrl={BASE_URL} locale={locale}>
+						<div class="flex flex-row justify-center items-center gap-2">
+							<a class="text-3xl" href={`${replaceUrlWithLocale(Astro.url.toString(), "it_IT")}`}>
+								🇮🇹
+							</a>
+							<a class="text-3xl" href={`${replaceUrlWithLocale(Astro.url.toString(), "en_GB")}`}>
+								🇬🇧
+							</a>
+							<a class="text-3xl" href={`${replaceUrlWithLocale(Astro.url.toString(), "fr_FR")}`}>
+								🇫🇷
+							</a>
+							<a class="text-3xl" href={`${replaceUrlWithLocale(Astro.url.toString(), "es_ES")}`}>
+								🇪🇸
+							</a>
+						</div>
+					</MobileMenu>
+				</div>
+			</div>
+		</header>
+		
 		<slot />
+
+		<div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-3">
+			<p class="text-primary text-2xl md:text-4xl text-center">Informazioni Contatto</p>
+			<div class="flex flex-col gap-3 md:flex-row justify-between items-start w-full">
+				{includeContactForm && (
+					<form class="flex flex-col gap-4 w-full max-w-[500px]">
+						<input type="text" placeholder="Nome" class="w-full p-2 border border-gray-300 rounded-md" />
+						<input type="email" placeholder="Email" class="w-full p-2 border border-gray-300 rounded-md" />
+						<textarea placeholder="Messaggio" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+						<button class="bg-primary text-white rounded-md py-2 px-4 uppercase font-semibold hover:bg-secondary transition-all duration-200">
+							Invia
+						</button>
+					</form>
+				)}
+			<div class={`flex flex-col gap-4 ${includeContactForm ? 'items-start' : 'items-center'}`}>
+				<a class="flex flex-row items-center gap-2 hover:brightness-90 transition-all duration-200" href={`tel:${commons.contactPhone.link}`}target="_blank">
+					<Phone className="w-5 h-5 text-primary" fill="white" />
+					<span class="text-lg">
+						{commons.contactPhone.formatted}
+					</span>
+				</a>
+				<a class="flex flex-row items-center gap-2 hover:brightness-90 transition-all duration-200" href={`mailto:${commons.contactEmail}`}target="_blank">
+					<Mail className="w-5 h-5 text-primary" fill="white" />
+					<span class="text-lg">
+						{includeContactForm ? commons.bookingEmail : commons.contactEmail}
+					</span>
+				</a>
+			</div>
+			</div>
+		</div>
+		<div class="mx-auto py-14 px-4 md:px-0 w-full max-w-screen-lg flex flex-col items-center justify-center gap-3">
+			<p class="text-primary text-2xl md:text-4xl text-center">Pagamenti Sicuri</p>
+			<p class="text-gray-500 text-lg md:text-2xl text-center">
+				Ti garantisce i più alti livelli di sicurezza e crittografia
+			</p>
+			<img width="940" height="300" src="https://www.aiellohotels.com/wp-content/uploads/2020/10/loghi.png" alt="" title="loghi carte di credito" srcset="https://www.aiellohotels.com/wp-content/uploads/2020/10/loghi.png 940w, https://www.aiellohotels.com/wp-content/uploads/2020/10/loghi-480x153.png 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 940px, 100vw" class="wp-image-15">
+		</div>
+	
+		<footer class="w-full grid place-items-center bg-secondary py-4 px-4 md:px-0">
+			<div class="w-full max-w-screen-lg flex flex-col md:flex-row justify-between items-center">
+				<p class="text-primary text-center">AIELLO HOTELS © Copyright Aiello s.r.l. All Rights Reserved. P. IVA 08837450967</p>
+				<div class="flex flex-col md:flex-row items-center gap-3">
+					<a href="https://www.iubenda.com/privacy-policy/39649537" target="_blank">
+						Privacy Policy
+					</a>
+					<a href={getRouteWithLocale(BASE_URL, locale, "/cookies-policy")}>
+						Cookies Policy
+					</a>
+				</div>
+			</div>
+		</footer>
 	</body>
 </html>
 <style is:global>
