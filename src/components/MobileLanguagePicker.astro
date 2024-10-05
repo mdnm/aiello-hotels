@@ -1,0 +1,15 @@
+---
+import * as m from '../paraglide/messages';
+import { availableLanguageTags, languageTag } from '../paraglide/runtime';
+
+const makeUrlForLanguage = (lang: string) =>
+  `/${lang}${Astro.url.pathname.replace(`/${languageTag()}`, '')}`;
+---
+
+<ul class="flex flex-row justify-center items-center gap-4">
+  {availableLanguageTags.map((lang) => (
+    <li>
+      <a class="text-3xl" href={makeUrlForLanguage(lang)}>{m.goToLanguage(undefined, { languageTag: lang })}</a>
+    </li>
+  ))}
+</ul>

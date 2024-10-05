@@ -1,5 +1,6 @@
 import { APIProvider, InfoWindow, Map, Marker, useMarkerRef } from '@vis.gl/react-google-maps';
 import { useCallback, useState } from 'react';
+import * as m from '../paraglide/messages';
 
 type Location = {
   lat: number; lng: number;
@@ -48,7 +49,7 @@ const MarkerWithInfoWindow = ({
           <p className="text-base">{location.address}</p>
           <img className="!max-w-[200px] rounded-md" src={location.image} alt={location.title} />
           <a href={`http://localhost:4321${location.path}`} className="bg-primary text-secondary uppercase py-2 px-3 rounded-md text-xl w-full hover:bg-secondary hover:text-primary transition-all duration-200">
-            Prenota
+            {m.book()}
           </a>
         </InfoWindow>
       )}
@@ -78,13 +79,14 @@ const Locations = ({
 }
 
 export const GoogleMap = ({
-  locations
+  locations,
+  lang,
+  region
 }: {
   locations: Location[];
+  lang: string;
+  region: string;
 }) => {
-  const userLanguage = 'it_IT';
-  const userRegion = 'IT';
-
   const mapStyles = [
     {
       stylers: [{ saturation: -85 }],
@@ -106,8 +108,8 @@ export const GoogleMap = ({
   return (
     <APIProvider
       apiKey="AIzaSyDEDH6KbS1E14gpk3o9VJOvQe26o7HDDME"
-      language={userLanguage}
-      region={userRegion}
+      language={lang}
+      region={region}
     >
       <Map
         className="w-full h-[500px]"

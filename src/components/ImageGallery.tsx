@@ -15,8 +15,8 @@ export const ImageGallery = ({ images, autoPlayInterval = 3000, pauseDuration = 
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
-  const autoplayRef = useRef<number>();
-  const timeoutRef = useRef<number>();
+  const autoplayRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout>();
 
   const handleNextImage = () => {
     setCurrentIndex((prevIndex) =>

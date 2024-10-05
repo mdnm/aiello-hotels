@@ -1,0 +1,21 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "homePageTitle": "Aiello Hotels Milan - Tarif réduit de 10%",
+  "homePageDescription": "Aiello Hotels - Aiello Rooms - Aiello suites - Tarif réduit de 10% par rapport à n'importe quel site de réservation - Annulation gratuite - Aucune pénalité. Restez en toute sécurité.",
+  "homeHero": "Stratégiquement situé à Milan<br/>Accueillant des invités depuis 2014",
+  "checkAvailability": "Vérifier la disponibilité",
+  "selectStructure": "Choisir la structure",
+  "whyBookDirectly": "Pourquoi réserver directement ?",
+  "bestPriceGuaranteed": "Meilleur prix garanti",
+  "bestPriceGuaranteedDescription": "Tarif réduit de 10% par rapport à toute offre sur les sites d'intermédiaires",
+  "freeCancellation": "Annulation gratuite",
+  "freeCancellationDescription": "Annulation gratuite jusqu'à minuit la veille de l'arrivée",
+  "noPenalty": "Aucune pénalité appliquée, jamais",
+  "noPenaltyDescription": "Vous ne pouvez toujours pas profiter de votre séjour ? <br/> Nous vous réservons un bon à utiliser pour un séjour futur",
+  "onlineCheckIn": "Enregistrement en ligne",
+  "onlineCheckInDescription": "Gagnez du temps et effectuez un enregistrement en libre-service en toute sécurité",
+  "flexibleRates": "Tarifs et horaires personnalisés",
+  "flexibleRatesDescription": "Nous personnalisons les tarifs et les horaires en fonction de vos besoins d'utilisation journalière ou de bureau",
+  "freeMinibar": "Minibar gratuit",
+  "goToLanguage": "🇫🇷"
+}

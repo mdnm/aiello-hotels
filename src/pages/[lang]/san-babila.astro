@@ -1,16 +1,25 @@
 ---
 import { Image } from 'astro:assets';
 import { Baby, BathIcon, BedDouble, BusFront, CalendarCheck, ChevronRight, Coffee, Luggage, ParkingCircle, PawPrint, Phone, Plane } from 'lucide-react';
-import { GoogleMap } from '../components/GoogleMap.tsx';
-import { ImageGallery } from '../components/ImageGallery.tsx';
-import Layout from '../layouts/Layout.astro';
+import { GoogleMap } from '../../components/GoogleMap.tsx';
+import { ImageGallery } from '../../components/ImageGallery.tsx';
+import Layout from '../../layouts/Layout.astro';
+import * as m from '../../paraglide/messages';
+import { availableLanguageTags } from '../../paraglide/runtime';
+
+
+export function getStaticPaths() {
+  return availableLanguageTags.map((lang) => ({ params: { lang } }));
+}
+
+const paraglide = Astro.locals.paraglide;
 
 const locations = [
   { 
     lat: 45.467040,
     lng: 9.197540,
-    title: 'Aiello Rooms - San Babila',
-    address: 'Piazza San Babila, 5 - Nel cuore della moda',
+    title: m.sanBabilaDescription(),
+    address: m.sanBabilaAddress(),
     path: '/san-babila',
     image: 'https://www.aiellohotels.com/wp-content/uploads/2021/03/san-Babila_-10-copia-3-300x203.jpg',
   },
@@ -19,37 +28,41 @@ const locations = [
 ---
 
 <Layout 
-  title="Aiello Rooms - San Babila Milano - Tariffa scontata del 10%"
-  description="Aiello Rooms - San Babila Milano - Tariffa scontata del 10% rispetto a qualsiasi sito di prenotazione - Cancellazione gratuita - Nessuna penale. Soggiorna in tutta sicurezza."
-  locale="it_IT"
+  title={m.sanBabilaTitle()}
+  description={m.sanBabilaPageDescription()}
   includeContactForm
 >
   <div class="bg-hero w-full flex flex-col items-center gap-10 text-white text-center pt-10 pb-44 z-0">
-    <h1 class="text-3xl md:text-5xl font-serif text-secondary uppercase">Aiello Rooms<br/>San Babila</h1>
-    <p class="text-xl md:text-3xl font-thin">Nel vero cuore di Milano</p>
+    <h1 class="text-3xl md:text-5xl font-serif text-secondary uppercase" set:html={m.sanBabilaHeroTitle()}></h1>
+    <p class="text-xl md:text-3xl font-thin">{m.sanBabilaHeroDescription()}</p>
     <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group">
-      Verifica Disponibilità
+      {m.checkAvailability()}
       <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
     </a>
     <div class="pattern"></div>
   </div>
   <div class="w-full bg-primary text-secondary text-center py-7">
-    <p class="text-xl md:text-4xl mb-1">La posizione di Aiello Rooms – San Babila:</p>
-    <p class="text-lg md:text-3xl">Piazza San Babila, 5 – 20123 Milano</p>
+    <p class="text-xl md:text-4xl mb-1">{m.sanBabilaPosition()}</p>
+    <p class="text-lg md:text-3xl">{m.sanBabilaPageAddress()}</p>
   </div>
-  <GoogleMap client:load locations={locations} />
+  <GoogleMap 
+    client:load
+    locations={locations}
+    lang={paraglide.lang}
+    region={"IT" /** TODO: update  */}
+  />
   <div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
-    <p class="text-primary text-2xl md:text-4xl text-center">Cosa amano gli ospiti di Aiello Rooms – San Babila</p>
+    <p class="text-primary text-2xl md:text-4xl text-center">{m.sanBabilaWhy()}</p>
     <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
-      Vista
+      {m.view()}
     </p>
     <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
       <div class="flex-1">
         <p class="text-gray-500 text-base md:text-lg mb-1">
-          Dalle camere dell’ Aiello Rooms – San Babila la vista è spettacolare, direttamente sulla piazza e sulla basilica. Sembra di essere “dentro” la piazza. Davvero scenografico dormire, stare a letto e avere una vista così.
+          {m.sanBabilaReview1()}
         </p>
         <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
-          Paul, Australia <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/booking-60-1.png" alt="Booking.com" width={32} height={32} />
+          {m.sanBabilaReview1Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/booking-60-1.png" alt="Booking.com" width={32} height={32} />
         </p>
       </div>
       <div class="flex-1">
@@ -57,7 +70,7 @@ const locations = [
       </div>
     </div>
     <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
-      Camere
+      {m.rooms()}
     </p>
     <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
       <div class="flex-1">
@@ -65,23 +78,23 @@ const locations = [
       </div>
       <div class="flex-1">
         <p class="text-gray-500 text-base md:text-lg mb-1">
-          Camera da letto e bagno moderni, pulitissimi e di design.
+          {m.sanBabilaReview2()}
         </p>
         <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
-          Gilbert, Francia <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/tripadvisor-50-1.png" alt="Trip advisor" width={32} height={32} />
+          {m.sanBabilaReview2Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/tripadvisor-50-1.png" alt="Trip advisor" width={32} height={32} />
         </p>
       </div>
     </div>
     <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
-      Posizione
+      {m.position()}
     </p>
     <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
       <div class="flex-1">
         <p class="text-gray-500 text-base md:text-lg mb-1">
-          Aiello Rooms – San Babila è ubicata nel quadrilatero della moda, in pienissimo centro, poche centinaia di metri dal Duomo e dalla galleria, e 20 metri da via monte napoleone. Nella piena movida Milanese. Immersi tra tantissimi negozi che vendono tutte le marche più famose al mondo.
+          {m.sanBabilaReview3()}
         </p>
         <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
-          Michele, Italia <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/tripadvisor-50-1.png" alt="Trip advisor" width={32} height={32} />
+          {m.sanBabilaReview3Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/tripadvisor-50-1.png" alt="Trip advisor" width={32} height={32} />
         </p>
       </div>
       <div class="flex-1">
@@ -89,7 +102,7 @@ const locations = [
       </div>
     </div>
     <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
-      Accoglienza
+      {m.hospitality()}
     </p>
     <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
       <div class="flex-1">
@@ -97,23 +110,23 @@ const locations = [
       </div>
       <div class="flex-1">
         <p class="text-gray-500 text-base md:text-lg mb-1">
-          Non avremmo potuto scegliere un posto migliore di Aiello Rooms – San Babila in cui soggiornare a Milano. La signora alla reception era una delle persone più gentili che abbia mai incontrato in tutta la mia vita.
+          {m.sanBabilaReview4()}
         </p>
         <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
-          Lai, Stati Uniti d’America <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/booking-60-1.png" alt="Booking.com" width={32} height={32} />
+          {m.sanBabilaReview4Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/booking-60-1.png" alt="Booking.com" width={32} height={32} />
         </p>
       </div>
     </div>
     <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
-      Pulizia
+      {m.cleanliness()}
     </p>
     <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
       <div class="flex-1">
         <p class="text-gray-500 text-base md:text-lg mb-1">
-          La camera era immacolata, pulitissima, nuova e moderna, con una splendida vista sulla piazza San Babila.
+          {m.sanBabilaReview5()}
         </p>
         <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
-          Steven, Stati Uniti d’America <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/booking-60-1.png" alt="Booking.com" width={32} height={32} />
+          {m.sanBabilaReview5Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/booking-60-1.png" alt="Booking.com" width={32} height={32} />
         </p>
       </div>
       <div class="flex-1">
@@ -122,7 +135,7 @@ const locations = [
     </div>
   </div>
   <div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
-    <p class="text-primary text-2xl md:text-4xl text-center">Scegli la tipologia di camera</p>
+    <p class="text-primary text-2xl md:text-4xl text-center">{m.chooseRoomType()}</p>
     <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md">
       <ImageGallery 
         client:load
@@ -140,21 +153,21 @@ const locations = [
       />
       <div class="flex flex-col items-center gap-8 flex-1">
         <p class="text-xl md:text-3xl text-secondary">
-          Camera Standard
+          {m.sanBabilaRoom1()} 
         </p>
         <div class="flex flex-col gap-1 max-w-[270px] text-base md:text-xl text-white">
           <p>
-            Letto matrimoniale o letti singoli
+            {m.sanBabilaRoom1Feature1()}
           </p>
           <p>
-            Vista panoramica sulla piazza
+            {m.sanBabilaRoom1Feature2()}
           </p>
           <p>
-            Dimensioni: 23 m²
+            {m.sanBabilaRoom1Feature3()}
           </p>
         </div>
         <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
-          Verifica Disponibilità
+          {m.checkAvailability()}
           <ChevronRight className="w-0 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
         </a>
       </div>
@@ -176,24 +189,24 @@ const locations = [
       />
       <div class="flex flex-col items-center gap-8 flex-1">
         <p class="text-xl md:text-3xl text-secondary">
-          Camera Superior
+          {m.sanBabilaRoom2()}
         </p>
         <div class="flex flex-col gap-1 max-w-[270px] text-base md:text-xl text-white">
           <p>
-            Doppia vista angolare sulla piazza
+            {m.sanBabilaRoom2Feature1()}
           </p>
           <p>
-            Letto matrimoniale o letti singoli
+            {m.sanBabilaRoom2Feature2()}
           </p>
           <p>
-            Poltrona e angolo lettura
+            {m.sanBabilaRoom2Feature3()}
           </p>
           <p>
-            Dimensioni: 29 m²
+            {m.sanBabilaRoom2Feature4()}
           </p>
         </div>
         <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
-          Verifica Disponibilità
+          {m.checkAvailability()}
           <ChevronRight className="w-0 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
         </a>
       </div>
@@ -215,116 +228,118 @@ const locations = [
       />
       <div class="flex flex-col items-center gap-8 flex-1">
         <p class="text-xl md:text-3xl text-secondary">
-          Camera Budget
+          {m.sanBabilaRoom3()} 
         </p>
         <div class="flex flex-col gap-1 max-w-[270px] text-base md:text-xl text-white">
           <p>
-            Vista sulla piazza
+            {m.sanBabilaRoom3Feature1()}
           </p>
           <p>
-            Letto matrimoniale
+            {m.sanBabilaRoom3Feature2()}
           </p>
           <p>
-            Dimensioni: 19 m²
+            {m.sanBabilaRoom3Feature3()}
           </p>
         </div>
         <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
-          Verifica Disponibilità
+          {m.checkAvailability()}
           <ChevronRight className="w-0 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
         </a>
       </div>
     </div> 
   </div> 
   <div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
-    <p class="text-primary text-2xl md:text-4xl text-center">Cosa troverai in camera</p>
+    <p class="text-primary text-2xl md:text-4xl text-center">
+      {m.whatYouWillFind()}
+    </p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 justify-items-center rounded-md px-4 py-6 w-full max-w-screen-md">
       <div class="flex flex-col gap-3 flex-1">
         <BedDouble className="w-16 h-16 text-primary" />
         <p class="text-xl text-primary font-semibold">
-          Camera da letto
+          {m.bedroom()}
         </p>
         <div class="flex flex-col md:flex-row gap-5">
           <ul class="list-disc pl-4">
-            <li>Wi-fi super fast gratuito</li>
-            <li>A/c</li>
-            <li>Minibar + Welcoming drink</li>
-            <li>Bollitore</li>
-            <li>Smart tv ultra hd</li>
-            <li>Cassetta di sicurezza</li>
+            <li>{m.wifi()}</li>
+            <li>{m.airConditioner()}</li>
+            <li>{m.minibar()}</li>
+            <li>{m.kettle()}</li>
+            <li>{m.smartTV()}</li>
+            <li>{m.safebox()}</li>
           </ul>
           <ul class="list-disc pl-4">
-            <li>Scrittoio/angolo lavoro</li>
-            <li>Prese usb</li>
-            <li>Mix di cuscini</li>
-            <li>Pouf</li>
-            <li>Insonorizzazione</li>
-            <li>Vista panoramica</li>
+            <li>{m.workspace()}</li>
+            <li>{m.usb()}</li>
+            <li>{m.pillows()}</li>
+            <li>{m.puff()}</li>
+            <li>{m.earplugs()}</li>
+            <li>{m.panoramicView()}</li>
           </ul>
         </div>
       </div>
       <div class="flex flex-col gap-3 flex-1">
         <BathIcon className="w-16 h-16 text-primary" />
         <p class="text-xl text-primary font-semibold">
-          Bagno
+          {m.bathroom()}
         </p>
         <ul class="list-disc pl-4">
-          <li>Courtesy set completo</li>
-          <li>Pantofole</li>
+          <li>{m.courtesySet()}</li>
+          <li>{m.slippers()}</li>
         </ul>
       </div>
     </div>
   </div>
   <div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
-    <p class="text-primary text-2xl md:text-4xl text-center">Informazioni utili per il soggiorno all'Aiello Rooms – San Babila</p>
+    <p class="text-primary text-2xl md:text-4xl text-center">{m.sanBabilaUsefulInfo()}</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-8 justify-items-center rounded-md px-4 py-6 w-full max-w-screen-xl">
       <div class="flex flex-col items-center text-center gap-2 sm:col-span-2">
         <div class="rounded-full bg-secondary p-3 self-center">
           <CalendarCheck className="w-10 h-10 text-primary" />
         </div>
-        <p class="text-primary text-lg self-center">Check-in e Check-out</p>
-        <Image src="https://www.aiellohotels.com/wp-content/uploads/2021/03/arrivi-partenze-1.jpg" alt="orari-arrivo-partenza" width="632" height="192" class="w-[600px]" />
+        <p class="text-primary text-lg self-center">{m.checkInCheckOut()}</p>
+        <Image src="https://www.aiellohotels.com/wp-content/uploads/2021/03/arrivi-partenze-1.jpg" alt="orari arrivo-partenza" width="632" height="192" class="w-[600px]" />
         <p class="text-gray-500 text-base">
-          ARRIVO dalle 14:30
+          {m.arrivalTime()}
         </p>
         <ul class="text-gray-500">
-          <li>Arrivo anticipato disponibile gratuitamente in base a disponibilità</li>
-          <li>Self service check in disponibile</li>
+          <li>{m.earlyCheckIn()}</li>
+          <li>{m.selfCheckIn()}</li>
         </ul>
         <p class="text-gray-500 text-base">
-          PARTENZA fino alle 11:00
+          {m.departureTime()}
         </p>
         <ul class="text-gray-500">
-          <li>Partenza ritardata disponibile fino alle 13:30 con un supplemento del 15% della tariffa giornaliera</li>
+          <li>{m.lateCheckOut()}</li>
         </ul>
       </div>
       <div class="flex flex-col items-center text-center gap-2">
         <div class="rounded-full bg-secondary p-3 self-center">
           <Coffee className="w-10 h-10 text-primary" />
         </div>
-        <p class="text-primary text-lg self-center">Colazione</p>
+        <p class="text-primary text-lg self-center">{m.breakfast()}</p>
         <p class="text-gray-500 text-base">
-          Dalle ore 07:00 alle 11:30 presso il famoso Café San Babila
+          {m.breakfastTime()}
         </p>
         <ul class="text-gray-500">
-          <li>Colazione in camera disponibile senza supplemento</li>
+          <li>{m.roomBreakfast()}</li>
         </ul>
       </div>
       <div class="flex flex-col items-center text-center gap-2">
         <div class="rounded-full bg-secondary p-3 self-center">
           <ParkingCircle className="w-10 h-10 text-primary" />
         </div>
-        <p class="text-primary text-lg self-center">Parcheggio convenzionato</p>
+        <p class="text-primary text-lg self-center">{m.partneredParking()}</p>
         <p class="text-gray-500 text-base">
-          Parcheggio Matteotti
+          {m.sanBabilaParkingName()}
         </p>
         <p class="text-gray-500 text-base">
-          Via San Pietro all’Orto, 8 (150 mt)
+          {m.sanBabilaParkingAddress()}
         </p>
         <p class="text-gray-500 text-base">
-          07:00 – 02:00
+          {m.sanBabilaParkingHours()}
         </p>
         <p class="text-gray-500 text-base">
-          € 25,00 al giorno
+          {m.sanBabilaParkingPrice()}
         </p>
         <a href="tel:+390276000795" class="text-primary text-base font-bold flex flex-row items-center gap-1">
           <Phone className="w-5 h-5 text-primary" />
@@ -335,57 +350,51 @@ const locations = [
         <div class="rounded-full bg-secondary p-3 self-center">
           <BusFront className="w-10 h-10 text-primary" />
         </div>
-        <p class="text-primary text-lg self-center">Trasporti</p>
-        <p class="text-gray-500 text-base">
-          Stazione metro:<br/>Metro rossa M1 SAN BABILA
-        </p>
-        <p class="text-gray-500 text-base">
-          Da Aeroporto di Malpensa:<br/>Malpensa Express fino a stazione CADORNA<br/>Metro rossa M1 fino a fermata SAN BABILA
-        </p>
-        <p class="text-gray-500 text-base">
-          Da Aeroporto di Bergamo:<br/>Orio Shuttle fino a stazione CENTRALE<br/>Metro verde M2 fino a fermata LORETO<br/>Metro rossa M1 fino a fermata SAN BABILA
-        </p>
+        <p class="text-primary text-lg self-center">{m.sanBabilaTransportation()}</p>
+        <p class="text-gray-500 text-base" set:html={m.sanBabilaMetroStation()}></p>
+        <p class="text-gray-500 text-base" set:html={m.sanBabilaFromMalpensa()}></p>
+        <p class="text-gray-500 text-base" set:html={m.sanBabilaFromBergamo()}></p>
       </div>
       <div class="flex flex-col items-center text-center gap-2">
         <div class="rounded-full bg-secondary p-3 self-center">
           <Plane className="w-10 h-10 text-primary" />
         </div>
-        <p class="text-primary text-lg self-center">Navetta Aeroporto</p>
+        <p class="text-primary text-lg self-center">{m.sanBabilaAirportShuttle()}</p>
         <p class="text-gray-500 text-base">
-          Prenotazione necessaria
+          {m.reservationRequired()}
         </p>
       </div>
       <div class="flex flex-col items-center text-center gap-2">
         <div class="rounded-full bg-secondary p-3 self-center">
           <Luggage className="w-10 h-10 text-primary" />
         </div>
-        <p class="text-primary text-lg self-center">Deposito Bagagli</p>
+        <p class="text-primary text-lg self-center">{m.luggageStorage()}</p>
         <p class="text-gray-500 text-base">
-          Gratuito
+          {m.free()}
         </p>
       </div>
       <div class="flex flex-col items-center text-center gap-2">
         <div class="rounded-full bg-secondary p-3 self-center">
           <Baby className="w-10 h-10 text-primary" />
         </div>
-        <p class="text-primary text-lg self-center">Culla</p>
+        <p class="text-primary text-lg self-center">{m.crib()}</p>
         <p class="text-gray-500 text-base">
-          Disponibile con un supplemento
+          {m.cribAvailability()}
         </p>
       </div>
       <div class="flex flex-col items-center text-center gap-2">
         <div class="rounded-full bg-secondary p-3 self-center">
           <PawPrint className="w-10 h-10 text-primary" />
         </div>
-        <p class="text-primary text-lg self-center">Animali</p>
+        <p class="text-primary text-lg self-center">{m.pets()}</p>
         <p class="text-gray-500 text-base">
-          Accogliamo animali da compagnia di piccola taglia con un piccolo supplemento legato alla necessità di trattamenti antiallergeni alla partenza
+          {m.petPolicy()}
         </p>
       </div>
     </div>
   </div>
   <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit mx-auto">
-    Verifica Disponibilità
+    {m.checkAvailability()}
     <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
   </a>
 </Layout>

@@ -1,24 +1,27 @@
 ---
 import { Image } from "astro:assets";
+import { ViewTransitions } from 'astro:transitions';
 import { ChevronDown, Mail, Phone } from "lucide-react";
+import LanguagePicker from "../components/LanguagePicker.astro";
+import MobileLanguagePicker from "../components/MobileLanguagePicker.astro";
 import { MobileMenu } from '../components/MobileMenu.tsx';
+import * as m from '../paraglide/messages';
 import { commons } from "../utils/commons";
-import { getRouteWithLocale, replaceUrlWithLocale, type Locales } from "../utils/url";
+
 
 interface Props {
 	title: string;
 	description: string;
-	locale?: Locales;
 	includeContactForm?: boolean;
 }
 
-const { title, description, locale = "it_IT", includeContactForm = false } = Astro.props;
+const { title, description, includeContactForm = false } = Astro.props;
 
-const BASE_URL = Astro.url.origin;
+const paraglide = Astro.locals.paraglide;
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={paraglide.lang} dir={paraglide.dir}>
 	<head>
 		<link rel="canonical" href={Astro.url} />
 		<link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -28,7 +31,7 @@ const BASE_URL = Astro.url.origin;
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 
-		<meta property="og:locale" content={locale} />
+		<meta property="og:locale" content={paraglide.lang} />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
@@ -45,6 +48,15 @@ const BASE_URL = Astro.url.origin;
 		<meta name="generator" content={Astro.generator} />
 
 		<title>{title}</title>
+
+		<ViewTransitions />
+
+		<style is:global>
+			@tailwind base;
+			@tailwind components;
+			@tailwind utilities;
+		</style>
+		
 	</head>
 	<body class="pt-[104px]">
 		<header>
@@ -64,84 +76,58 @@ const BASE_URL = Astro.url.origin;
 							</span>
 						</a>
 					</div>
-					<div class="hidden md:flex flex-row items-center gap-4">
-						<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "it_IT")}`}>
-							🇮🇹
-						</a>
-						<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "en_GB")}`}>
-							🇬🇧
-						</a>
-						<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "fr_FR")}`}>
-							🇫🇷
-						</a>
-						<a class="text-base" href={`${replaceUrlWithLocale(Astro.url.toString(), "es_ES")}`}>
-							🇪🇸
-						</a>
-					</div>
+					<LanguagePicker />
 				</div>
 			</div>
 			<div class="z-40 w-full grid place-items-center fixed top-[4.5rem] md:top-10 bg-white">
 				<div class="relative w-full max-w-screen-lg flex flex-row justify-between items-center px-2 pb-1 md:p-0">
 					<Image src="https://www.aiellohotels.com/wp-content/uploads/2021/05/logo_aiello-hotels.jpg" alt="Aiello Hotels Milano" width={50} height={50} />
 					<nav class="hidden md:flex flex-row items-center gap-4">
-						<a href={getRouteWithLocale(BASE_URL, locale, "/")} class="text-primary py-5 hover:brightness-200 transition duration-200">
-							Home
+						<a href={`/${paraglide.lang}`} class="text-primary py-5 hover:brightness-200 transition duration-200">
+							{m.home()}
 						</a>
 						<div class="relative group">
 							<span class="text-gray-400 inline-flex items-center gap-2 cursor-pointer hover:brightness-75 transition duration-200">
-								Dove siamo <ChevronDown className="w-4 h-4" />
+								{m.where()} <ChevronDown className="w-4 h-4" />
 							</span>	
 							<div class="hidden group-hover:block group-hover:delay-150 transition-all duration-200 absolute top-6 right-0 w-max bg-white shadow-md rounded-md border-t-4 border-t-primary py-2 px-3">
 								<ul class="flex flex-col gap-3 text-primary font-semibold">
 									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
-										<a href={getRouteWithLocale(BASE_URL, locale, "/san-babila")} class="w-full">
-											Aiello Rooms – San Babila, Centro Storico
+										<a href={`/${paraglide.lang}/san-babila`} class="w-full">
+											{m.sanBabilaDescription()}
 										</a>
 									</li>
 									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
-										<a href={getRouteWithLocale(BASE_URL, locale, "/duomo")} class="w-full">
-											Aiello Hotels – Duomo, Centro Storico
+										<a href={`/${paraglide.lang}/duomo`} class="w-full">
+											{m.duomoDescription()}
 										</a>
 									</li>
 									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
-										<a href={getRouteWithLocale(BASE_URL, locale, "/stazione-centrale")} class="w-full">
-											Aiello Hotels – Centrale, Stazione Centrale
+										<a href={`/${paraglide.lang}/stazione-centrale`} class="w-full">
+											{m.stazioneCentraleDescription()}
 										</a>
 									</li>
 									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
-										<a href={getRouteWithLocale(BASE_URL, locale, "/via-palmieri")} class="w-full">
-											Aiello Suites Executive, Navigli
+										<a href={`/${paraglide.lang}/via-palmieri`} class="w-full">
+											{m.viaPalmieriDescription()}
 										</a>
 									</li>
 									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
-										<a href={getRouteWithLocale(BASE_URL, locale, "/via-montegani")} class="w-full">
-											Aiello Suites Milan, Navigli
+										<a href={`/${paraglide.lang}/via-montegani`} class="w-full">
+											{m.viaMonteganiDescription()}
 										</a>
 									</li>
 									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
-										<a href={getRouteWithLocale(BASE_URL, locale, "/via-ausonio")} class="w-full">
-											Aiello Rooms, Centro Città
+										<a href={`/${paraglide.lang}/via-ausonio`} class="w-full">
+											{m.viaAusonioDescription()}
 										</a>
 									</li>
 								</ul>
 							</div>
 						</div>
 					</nav>
-					<MobileMenu client:load baseUrl={BASE_URL} locale={locale}>
-						<div class="flex flex-row justify-center items-center gap-2">
-							<a class="text-3xl" href={`${replaceUrlWithLocale(Astro.url.toString(), "it_IT")}`}>
-								🇮🇹
-							</a>
-							<a class="text-3xl" href={`${replaceUrlWithLocale(Astro.url.toString(), "en_GB")}`}>
-								🇬🇧
-							</a>
-							<a class="text-3xl" href={`${replaceUrlWithLocale(Astro.url.toString(), "fr_FR")}`}>
-								🇫🇷
-							</a>
-							<a class="text-3xl" href={`${replaceUrlWithLocale(Astro.url.toString(), "es_ES")}`}>
-								🇪🇸
-							</a>
-						</div>
+					<MobileMenu client:load>
+						<MobileLanguagePicker />
 					</MobileMenu>
 				</div>
 			</div>
@@ -150,15 +136,15 @@ const BASE_URL = Astro.url.origin;
 		<slot />
 
 		<div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-3">
-			<p class="text-primary text-2xl md:text-4xl text-center">Informazioni Contatto</p>
-			<div class="flex flex-col gap-3 md:flex-row justify-between items-start w-full">
+			<p class="text-primary text-2xl md:text-4xl text-center">{m.contact()}</p>
+			<div class={`flex flex-col gap-3 md:flex-row ${includeContactForm ? 'justify-between' : 'justify-center'} items-start w-full`}>
 				{includeContactForm && (
 					<form class="flex flex-col gap-4 w-full max-w-[500px]">
-						<input type="text" placeholder="Nome" class="w-full p-2 border border-gray-300 rounded-md" />
-						<input type="email" placeholder="Email" class="w-full p-2 border border-gray-300 rounded-md" />
-						<textarea placeholder="Messaggio" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+						<input type="text" placeholder={m.name()} class="w-full p-2 border border-gray-300 rounded-md" />
+						<input type="email" placeholder={m.email()} class="w-full p-2 border border-gray-300 rounded-md" />
+						<textarea placeholder={m.message()} class="w-full p-2 border border-gray-300 rounded-md"></textarea>
 						<button class="bg-primary text-white rounded-md py-2 px-4 uppercase font-semibold hover:bg-secondary transition-all duration-200">
-							Invia
+							{m.send()}
 						</button>
 					</form>
 				)}
@@ -179,9 +165,9 @@ const BASE_URL = Astro.url.origin;
 			</div>
 		</div>
 		<div class="mx-auto py-14 px-4 md:px-0 w-full max-w-screen-lg flex flex-col items-center justify-center gap-3">
-			<p class="text-primary text-2xl md:text-4xl text-center">Pagamenti Sicuri</p>
+			<p class="text-primary text-2xl md:text-4xl text-center">{m.securePayments()}</p>
 			<p class="text-gray-500 text-lg md:text-2xl text-center">
-				Ti garantisce i più alti livelli di sicurezza e crittografia
+				{m.securePaymentsDescription()}
 			</p>
 			<img width="940" height="300" src="https://www.aiellohotels.com/wp-content/uploads/2020/10/loghi.png" alt="" title="loghi carte di credito" srcset="https://www.aiellohotels.com/wp-content/uploads/2020/10/loghi.png 940w, https://www.aiellohotels.com/wp-content/uploads/2020/10/loghi-480x153.png 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 940px, 100vw" class="wp-image-15">
 		</div>
@@ -193,7 +179,7 @@ const BASE_URL = Astro.url.origin;
 					<a href="https://www.iubenda.com/privacy-policy/39649537" target="_blank">
 						Privacy Policy
 					</a>
-					<a href={getRouteWithLocale(BASE_URL, locale, "/cookies-policy")}>
+					<a href="/cookies-policy">
 						Cookies Policy
 					</a>
 				</div>
@@ -201,8 +187,3 @@ const BASE_URL = Astro.url.origin;
 		</footer>
 	</body>
 </html>
-<style is:global>
-	@tailwind base;
-	@tailwind components;
-	@tailwind utilities;
-</style>
