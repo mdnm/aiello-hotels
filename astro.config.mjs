@@ -7,14 +7,15 @@ import tailwind from '@astrojs/tailwind';
 
 import mdx from '@astrojs/mdx';
 
+import vercel from '@astrojs/vercel/serverless';
+
 // https://astro.build/config
 export default defineConfig({
-  site: "https://mdnm.github.io",
-  base: "aiello-hotels",
   i18n: {
     locales: ['it', 'en', 'fr', 'es', 'pt-br'],
     defaultLocale: 'it',
   },
+
   integrations: [
     react(),
     tailwind(),
@@ -25,7 +26,11 @@ export default defineConfig({
       outdir: './src/paraglide', //where your files should be
     })
   ],
+
   image: {
     domains: ["aiellohotels.com"]
-  }
+  },
+
+  output: 'server',
+  adapter: vercel()
 });

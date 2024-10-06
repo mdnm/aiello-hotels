@@ -86,11 +86,11 @@ const paraglide = Astro.locals.paraglide;
 			</div>
 			<div class="z-40 w-full grid place-items-center fixed top-[4.5rem] md:top-10 bg-white shadow-md">
 				<div class="relative w-full max-w-screen-lg flex flex-row justify-between items-center px-2 pb-1 md:p-0">
-					<a href={`/aiello-hotels/${paraglide.lang}`}>
+					<a href={`/${paraglide.lang}`}>
 						<Image src="https://www.aiellohotels.com/wp-content/uploads/2021/05/logo_aiello-hotels.jpg" alt="Aiello Hotels Milano" width={50} height={50} loading="lazy" />
 					</a>
 					<nav class="hidden md:flex flex-row items-center gap-4">
-						<a href={`/aiello-hotels/${paraglide.lang}`} class="text-primary py-5 hover:brightness-200 transition duration-200">
+						<a href={`/${paraglide.lang}`} class="text-primary py-5 hover:brightness-200 transition duration-200">
 							{m.home()}
 						</a>
 						<div class="relative group">
@@ -100,32 +100,32 @@ const paraglide = Astro.locals.paraglide;
 							<div class="hidden group-hover:block group-hover:delay-150 transition-all duration-200 absolute top-6 right-0 w-max bg-white shadow-md rounded-md border-t-4 border-t-primary rounded-t-none py-2 px-3">
 								<ul class="flex flex-col gap-3 text-primary font-semibold">
 									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
-										<a href={`/aiello-hotels/${paraglide.lang}/san-babila`} class="w-full">
+										<a href={`/${paraglide.lang}/san-babila`} class="w-full">
 											{m.sanBabilaDescription()}
 										</a>
 									</li>
 									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
-										<a href={`/aiello-hotels/${paraglide.lang}/duomo`} class="w-full">
+										<a href={`/${paraglide.lang}/duomo`} class="w-full">
 											{m.duomoDescription()}
 										</a>
 									</li>
 									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
-										<a href={`/aiello-hotels/${paraglide.lang}/stazione-centrale`} class="w-full">
+										<a href={`/${paraglide.lang}/stazione-centrale`} class="w-full">
 											{m.stazioneCentraleDescription()}
 										</a>
 									</li>
 									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
-										<a href={`/aiello-hotels/${paraglide.lang}/via-palmieri`} class="w-full">
+										<a href={`/${paraglide.lang}/via-palmieri`} class="w-full">
 											{m.viaPalmieriDescription()}
 										</a>
 									</li>
 									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
-										<a href={`/aiello-hotels/${paraglide.lang}/via-montegani`} class="w-full">
+										<a href={`/${paraglide.lang}/via-montegani`} class="w-full">
 											{m.viaMonteganiDescription()}
 										</a>
 									</li>
 									<li class="flex flex-col items-stretch hover:brightness-200 transition-all duration-200">
-										<a href={`/aiello-hotels/${paraglide.lang}/via-ausonio`} class="w-full">
+										<a href={`/${paraglide.lang}/via-ausonio`} class="w-full">
 											{m.viaAusonioDescription()}
 										</a>
 									</li>
@@ -198,7 +198,7 @@ const paraglide = Astro.locals.paraglide;
 					<a href="https://www.iubenda.com/privacy-policy/39649537" target="_blank">
 						Privacy Policy
 					</a>
-					<a href={`/aiello-hotels/${paraglide.lang}/cookies-policy`}>
+					<a href={`/${paraglide.lang}/cookies-policy`}>
 						Cookies Policy
 					</a>
 				</div>

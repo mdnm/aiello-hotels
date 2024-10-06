@@ -48,7 +48,7 @@ const MarkerWithInfoWindow = ({
           <p className="text-lg font-bold">{location.title}</p>
           <p className="text-base">{location.address}</p>
           <img className="!max-w-[200px] rounded-md" src={location.image} alt={location.title} />
-          <a href={`/aiello-hotels/${location.path}`} className="bg-primary text-secondary uppercase py-2 px-3 rounded-md text-xl w-full hover:bg-secondary hover:text-primary transition-all duration-200">
+          <a href={`/${location.path}`} className="bg-primary text-secondary uppercase py-2 px-3 rounded-md text-xl w-full hover:bg-secondary hover:text-primary transition-all duration-200">
             {m.book()}
           </a>
         </InfoWindow>
