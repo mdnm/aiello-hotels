@@ -75,7 +75,7 @@ export const ImageGallery = ({ images, autoPlayInterval = 3000, pauseDuration = 
   }, [autoPlayInterval, images.length, isFullscreen, isHovering]);
 
   return (
-    <div className={`w-[410px] h-[280px] group relative flex items-stretch group ${className}`}>
+    <div className={`w-full min-h-[280px] md:w-[410px] md:min-h-[auto] h-[280px] group relative flex items-stretch group ${className}`}>
       <div className="overflow-hidden" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
         {images.map((image, index) => (
           <img
@@ -94,7 +94,7 @@ export const ImageGallery = ({ images, autoPlayInterval = 3000, pauseDuration = 
       {/* Previous Button */}
       <button
         onClick={handlePrev}
-        className="absolute  top-0 left-0 bottom-0 px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-[#00000020]"
+        className="absolute top-0 left-0 bottom-0 px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-[#00000020]"
       >
         <ChevronLeft size={32} className="text-white" />
       </button>
@@ -124,13 +124,18 @@ export const ImageGallery = ({ images, autoPlayInterval = 3000, pauseDuration = 
             <ChevronLeft size={32} className="text-white" />
           </button>
 
-          <img
-            src={images[currentIndex].src}
-            srcSet={images[currentIndex].srcSet}
-            alt=""
-            sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 850px, 100vw"
-            className="max-w-full max-h-full"
-          />
+          <div className="flex flex-col gap-2 px-3 md:px-0">
+            <img
+              src={images[currentIndex].src}
+              srcSet={images[currentIndex].srcSet}
+              alt=""
+              sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) and (max-width: 1280px) 1280px, (min-width: 1281px) 1348px, 100vw"
+              className="max-w-[980px] max-h-full"
+            />
+            <p className="self-center md:self-end text-white">
+              {currentIndex + 1} of {images.length}
+            </p>
+          </div>
 
           <button
             onClick={(e) => { e.stopPropagation(); handleNext() }}

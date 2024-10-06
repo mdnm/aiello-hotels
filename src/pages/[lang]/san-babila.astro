@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-import { Baby, BathIcon, BedDouble, BusFront, CalendarCheck, ChevronRight, Coffee, Luggage, ParkingCircle, PawPrint, Phone, Plane } from 'lucide-react';
+import { Baby, BathIcon, BedDouble, BusFront, CalendarCheck, Camera, ChevronRight, Coffee, Luggage, ParkingCircle, PawPrint, Phone, Plane } from 'lucide-react';
 import { GoogleMap } from '../../components/GoogleMap.tsx';
 import { ImageGallery } from '../../components/ImageGallery.tsx';
 import Layout from '../../layouts/Layout.astro';
 import * as m from '../../paraglide/messages';
-import { availableLanguageTags } from '../../paraglide/runtime';
-
+import { availableLanguageTags, languageTag } from '../../paraglide/runtime';
+import { languageToArrivalImage } from '../../utils/commons';
 
 export function getStaticPaths() {
   return availableLanguageTags.map((lang) => ({ params: { lang } }));
@@ -31,11 +31,15 @@ const locations = [
   title={m.sanBabilaTitle()}
   description={m.sanBabilaPageDescription()}
   includeContactForm
+  contactEmail="booking@aiellosuites.com"
 >
-  <div class="bg-hero w-full flex flex-col items-center gap-10 text-white text-center pt-10 pb-44 z-0">
+  <div class="bg-hero w-full flex flex-col items-center gap-10 text-white text-center py-52 z-0">
+    <a href="https://www.skylinewebcams.com/it/webcam/italia/lombardia/milano/piazza-san-babila.html" target="_blank" class="absolute top-0 right-0 left-0 bg-secondary text-primary h-16 flex items-center justify-center w-full gap-2">
+      {m.sanBabilaCameras()} <Camera className="w-5 h-5" />
+    </a>
     <h1 class="text-3xl md:text-5xl font-serif text-secondary uppercase" set:html={m.sanBabilaHeroTitle()}></h1>
     <p class="text-xl md:text-3xl font-thin">{m.sanBabilaHeroDescription()}</p>
-    <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group">
+    <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?hotel=125&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group">
       {m.checkAvailability()}
       <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
     </a>
@@ -51,7 +55,7 @@ const locations = [
     lang={paraglide.lang}
     region={"IT" /** TODO: update  */}
   />
-  <div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-6 md:gap-10">
     <p class="text-primary text-2xl md:text-4xl text-center">{m.sanBabilaWhy()}</p>
     <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
       {m.view()}
@@ -134,9 +138,9 @@ const locations = [
       </div>
     </div>
   </div>
-  <div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
     <p class="text-primary text-2xl md:text-4xl text-center">{m.chooseRoomType()}</p>
-    <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md">
+    <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md gap-3 md:gap-0">
       <ImageGallery 
         client:load
         images={[
@@ -148,6 +152,58 @@ const locations = [
             src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia.jpg",
             srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia-480x325.jpg 480w"
           },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-3-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-3-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-3-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-4ps-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-4ps-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-4ps-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-8-copia-3.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-8-copia-3.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-8-copia-3-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-7ps-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-7ps-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-7ps-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-6.ps-jpg-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-6.ps-jpg-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_-6.ps-jpg-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/9-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/9-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/9-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_ps-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_ps-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/san-babila_ps-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni-1-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni-1-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni-1-2-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-2-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-2-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-2-2-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-4-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-4-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-4-2-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila-Double-8.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila-Double-8.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila-Double-8-480x320.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/breakfast-san-babila-2-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/breakfast-san-babila-2-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/breakfast-san-babila-2-2-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/san-babila2-1-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/san-babila2-1-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/san-babila2-1-2-copia-480x325.jpg 480w"
+          }
         ]}
         className="flex-1"
       />
@@ -166,24 +222,80 @@ const locations = [
             {m.sanBabilaRoom1Feature3()}
           </p>
         </div>
-        <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
+        <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?hotel=125&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
           {m.checkAvailability()}
           <ChevronRight className="w-0 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
         </a>
       </div>
     </div> 
-    <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md">
+    <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md gap-3 md:gap-0">
       <ImageGallery 
         client:load
         images={[
           { 
-            src: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2.jpg",
-            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2-480x325.jpg 480w"
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-2-copia-480x325.jpg 480w"
           },
           { 
-            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia.jpg",
-            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia-480x325.jpg 480w"
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-3-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-3-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-3-copia-480x325.jpg 480w"
           },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-6-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-6-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-6-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-8-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-8-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-8-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-9_-4-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-9_-4-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-9_-4-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2024/02/babila-new-10-2-scaled.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2024/02/babila-new-10-2-scaled.jpg 2560w, https://www.aiellohotels.com/wp-content/uploads/2024/02/babila-new-10-2-300x200.jpg 300w, https://www.aiellohotels.com/wp-content/uploads/2024/02/babila-new-10-2-1024x683.jpg 1024w, https://www.aiellohotels.com/wp-content/uploads/2024/02/babila-new-10-2-768x512.jpg 768w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-9_-5-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-9_-5-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-9_-5-2-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-11-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-11-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-11-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-3-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-3-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-3-2-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-2-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-2-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-2-2-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-5-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-5-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-5-2-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-6-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-6-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-6-2-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila-8.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila-8.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila-8-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila1.png",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila1.png 850w, https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila1-480x325.png 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/breakfast-san-babila-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/breakfast-san-babila-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/breakfast-san-babila-2-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/milano-duomo_-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/milano-duomo_-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/milano-duomo_-copia-480x325.jpg 480w"
+          }
         ]}
         className="flex-1"
       />
@@ -205,24 +317,44 @@ const locations = [
             {m.sanBabilaRoom2Feature4()}
           </p>
         </div>
-        <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
+        <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?hotel=125&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
           {m.checkAvailability()}
           <ChevronRight className="w-0 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
         </a>
       </div>
     </div> 
-    <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md">
+    <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md gap-3 md:gap-0">
       <ImageGallery 
         client:load
         images={[
           { 
-            src: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2.jpg",
-            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-8-copia-2-480x325.jpg 480w"
+            src: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-5-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-5-copia.jpg 2498w, https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-5-copia-1280x828.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-5-copia-980x634.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-5-copia-480x310.jpg 480w"
           },
           { 
-            src: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia.jpg",
-            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2023/12/babila-new-7-copia-480x325.jpg 480w"
+            src: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-17-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-17-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2024/02/san-Babila_-17-copia-480x325.jpg 480w"
           },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-6-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-6-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/04/babila-bagni_-6-2-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila-8.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila-8.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila-8-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila1.png",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila1.png 850w, https://www.aiellohotels.com/wp-content/uploads/2020/10/San-Babila1-480x325.png 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/breakfast-san-babila-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/breakfast-san-babila-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/breakfast-san-babila-2-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/milano-duomo_-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/milano-duomo_-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/milano-duomo_-copia-480x325.jpg 480w"
+          }
         ]}
         className="flex-1"
       />
@@ -241,19 +373,19 @@ const locations = [
             {m.sanBabilaRoom3Feature3()}
           </p>
         </div>
-        <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
+        <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?hotel=125&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
           {m.checkAvailability()}
           <ChevronRight className="w-0 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
         </a>
       </div>
     </div> 
   </div> 
-  <div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
     <p class="text-primary text-2xl md:text-4xl text-center">
       {m.whatYouWillFind()}
     </p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 justify-items-center rounded-md px-4 py-6 w-full max-w-screen-md">
-      <div class="flex flex-col gap-3 flex-1">
+      <div class="flex flex-col items-center gap-3 flex-1">
         <BedDouble className="w-16 h-16 text-primary" />
         <p class="text-xl text-primary font-semibold">
           {m.bedroom()}
@@ -262,9 +394,9 @@ const locations = [
           <ul class="list-disc pl-4">
             <li>{m.wifi()}</li>
             <li>{m.airConditioner()}</li>
-            <li>{m.minibar()}</li>
+            <li>{m.minibarAndDrink()}</li>
             <li>{m.kettle()}</li>
-            <li>{m.smartTV()}</li>
+            <li>{m.smartTVHD()}</li>
             <li>{m.safebox()}</li>
           </ul>
           <ul class="list-disc pl-4">
@@ -272,12 +404,12 @@ const locations = [
             <li>{m.usb()}</li>
             <li>{m.pillows()}</li>
             <li>{m.puff()}</li>
-            <li>{m.earplugs()}</li>
+            <li>{m.soundproofing()}</li>
             <li>{m.panoramicView()}</li>
           </ul>
         </div>
       </div>
-      <div class="flex flex-col gap-3 flex-1">
+      <div class="flex flex-col items-center gap-3 flex-1">
         <BathIcon className="w-16 h-16 text-primary" />
         <p class="text-xl text-primary font-semibold">
           {m.bathroom()}
@@ -289,27 +421,27 @@ const locations = [
       </div>
     </div>
   </div>
-  <div class="mx-auto py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
     <p class="text-primary text-2xl md:text-4xl text-center">{m.sanBabilaUsefulInfo()}</p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-8 justify-items-center rounded-md px-4 py-6 w-full max-w-screen-xl">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 justify-items-center rounded-md px-4 py-6 w-full max-w-screen-xl">
       <div class="flex flex-col items-center text-center gap-2 sm:col-span-2">
         <div class="rounded-full bg-secondary p-3 self-center">
           <CalendarCheck className="w-10 h-10 text-primary" />
         </div>
         <p class="text-primary text-lg self-center">{m.checkInCheckOut()}</p>
-        <Image src="https://www.aiellohotels.com/wp-content/uploads/2021/03/arrivi-partenze-1.jpg" alt="orari arrivo-partenza" width="632" height="192" class="w-[600px]" />
+        <Image src={languageToArrivalImage[languageTag() ?? 'it']} alt="orari arrivo-partenza" width="632" height="192" class="w-[600px]" />
         <p class="text-gray-500 text-base">
-          {m.arrivalTime()}
+          {m.sanBabilaArrivalTime()}
         </p>
         <ul class="text-gray-500">
-          <li>{m.earlyCheckIn()}</li>
-          <li>{m.selfCheckIn()}</li>
+          <li>{m.sanBabilaEarlyCheckIn()}</li>
+          <li>{m.sanBabilaSelfCheckIn()}</li>
         </ul>
         <p class="text-gray-500 text-base">
-          {m.departureTime()}
+          {m.sanBabilaDepartureTime()}
         </p>
         <ul class="text-gray-500">
-          <li>{m.lateCheckOut()}</li>
+          <li>{m.sanBabilaLateCheckOut()}</li>
         </ul>
       </div>
       <div class="flex flex-col items-center text-center gap-2">
@@ -318,10 +450,10 @@ const locations = [
         </div>
         <p class="text-primary text-lg self-center">{m.breakfast()}</p>
         <p class="text-gray-500 text-base">
-          {m.breakfastTime()}
+          {m.sanBabilaBreakfastTime()}
         </p>
         <ul class="text-gray-500">
-          <li>{m.roomBreakfast()}</li>
+          <li>{m.sanBabilaRoomBreakfast()}</li>
         </ul>
       </div>
       <div class="flex flex-col items-center text-center gap-2">
@@ -350,7 +482,7 @@ const locations = [
         <div class="rounded-full bg-secondary p-3 self-center">
           <BusFront className="w-10 h-10 text-primary" />
         </div>
-        <p class="text-primary text-lg self-center">{m.sanBabilaTransportation()}</p>
+        <p class="text-primary text-lg self-center">{m.transportation()}</p>
         <p class="text-gray-500 text-base" set:html={m.sanBabilaMetroStation()}></p>
         <p class="text-gray-500 text-base" set:html={m.sanBabilaFromMalpensa()}></p>
         <p class="text-gray-500 text-base" set:html={m.sanBabilaFromBergamo()}></p>
@@ -393,7 +525,7 @@ const locations = [
       </div>
     </div>
   </div>
-  <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit mx-auto">
+  <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?hotel=125&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit mx-auto">
     {m.checkAvailability()}
     <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
   </a>

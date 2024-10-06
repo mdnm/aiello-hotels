@@ -1,0 +1,409 @@
+---
+import { Image } from 'astro:assets';
+import { Baby, BathIcon, BedDouble, BusFront, CalendarCheck, ChevronRight, Coffee, Luggage, ParkingCircle, PawPrint, Phone, Plane } from 'lucide-react';
+import { GoogleMap } from '../../components/GoogleMap.tsx';
+import { ImageGallery } from '../../components/ImageGallery.tsx';
+import Layout from '../../layouts/Layout.astro';
+import * as m from '../../paraglide/messages.js';
+import { availableLanguageTags, languageTag } from '../../paraglide/runtime.js';
+import { languageToArrivalImage } from '../../utils/commons';
+
+export function getStaticPaths() {
+  return availableLanguageTags.map((lang) => ({ params: { lang } }));
+}
+
+const paraglide = Astro.locals.paraglide;
+
+const locations = [
+  { 
+    lat: 45.465680,
+    lng: 9.196060,
+    title: m.duomoDescription(),
+    address: m.duomoAddress(),
+    path: '/duomo',
+    image: 'https://www.aiellohotels.com/wp-content/uploads/2022/06/Stanza-Duomo-e1654987293148.jpg',
+  },
+];
+
+---
+
+<Layout 
+  title={m.duomoTitle()}
+  description={m.duomoPageDescription()}
+  includeContactForm
+  contactEmail="duomo@aiellohotels.com"
+  contactPhone="+39 02 36510420"
+>
+  <div class="bg-hero w-full flex flex-col items-center gap-10 text-white text-center py-64 z-0">
+    <h1 class="text-3xl md:text-5xl font-serif text-secondary uppercase" set:html={m.duomoHeroTitle()}></h1>
+    <p class="text-xl md:text-3xl font-thin">{m.duomoHeroDescription()}</p>
+    <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?hotel=169&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group">
+      {m.checkAvailability()}
+      <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+    </a>
+    <div class="pattern"></div>
+  </div>
+  <div class="w-full bg-primary text-secondary text-center py-7">
+    <p class="text-xl md:text-4xl mb-1">{m.duomoPosition()}</p>
+    <p class="text-lg md:text-3xl">{m.duomoPageAddress()}</p>
+  </div>
+  <GoogleMap 
+    client:load
+    locations={locations}
+    lang={paraglide.lang}
+    region={"IT" /** TODO: update  */}
+  />
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-6 md:gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">{m.duomoWhy()}</p>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      {m.position()}
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          {m.duomoReview1()}
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          {m.duomoReview1Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2021/01/tripadvisor-50-1.png" alt="Booking.com" width={32} height={32} />
+        </p>
+      </div>
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2022/05/duomo-1-e1652819374731.jpg" alt="san Babila vista" srcset="https://www.aiellohotels.com/wp-content/uploads/2022/05/duomo-1-e1652819374731-932x551.jpg 932w, https://www.aiellohotels.com/wp-content/uploads/2022/05/duomo-1-e1652819374731-480x270.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 932px) 932px, 100vw">
+      </div>
+    </div>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      {m.rooms()}
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE.jpg" alt="san Babila camere" srcset="https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE.jpg 1620w, https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE-1280x853.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE-980x653.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE-480x320.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) and (max-width: 1280px) 1280px, (min-width: 1281px) 1620px, 100vw">
+      </div>
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          {m.duomoReview2()}
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          {m.duomoReview2Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2022/04/HRS_logo_logotype-e1650900458510.png" alt="HRS" width={62} height={32} />
+        </p>
+      </div>
+    </div>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      {m.staff()}
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          {m.duomoReview3()}
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          {m.duomoReview3Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2021/04/logo-Expedia.jpg" alt="Trip advisor" width={100} height={32} />
+        </p>
+      </div>
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2020/11/accoglienzaPalmieri.jpg" alt="san Babila posizione" srcset="https://www.aiellohotels.com/wp-content/uploads/2020/11/accoglienzaPalmieri.jpg 706w, https://www.aiellohotels.com/wp-content/uploads/2020/11/accoglienzaPalmieri-480x288.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 706px, 100vw">
+      </div>
+    </div>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      {m.checkIn()}
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2022/05/CVE-Check-in.jpg" alt="san Babila accoglienza" srcset="https://www.aiellohotels.com/wp-content/uploads/2022/05/CVE-Check-in.jpg 1620w, https://www.aiellohotels.com/wp-content/uploads/2022/05/CVE-Check-in-1280x853.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/CVE-Check-in-980x653.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/CVE-Check-in-480x320.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) and (max-width: 1280px) 1280px, (min-width: 1281px) 1620px, 100vw">
+      </div>
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          {m.duomoReview4()}
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          {m.duomoReview4Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/booking-60-1.png" alt="Booking.com" width={32} height={32} />
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">{m.chooseRoomType()}</p>
+    <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md gap-3 md:gap-0">
+      <ImageGallery 
+        client:load
+        images={[
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE.jpg 1620w, https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE-1280x853.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE-980x653.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE-480x320.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/2-CVE.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/2-CVE.jpg 1620w, https://www.aiellohotels.com/wp-content/uploads/2022/05/2-CVE-1280x853.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/2-CVE-980x653.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/2-CVE-480x320.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/3-CVE.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/3-CVE.jpg 1620w, https://www.aiellohotels.com/wp-content/uploads/2022/05/3-CVE-1280x853.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/3-CVE-980x653.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/3-CVE-480x320.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/4-CVE.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/4-CVE.jpg 1620w, https://www.aiellohotels.com/wp-content/uploads/2022/05/4-CVE-1280x853.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/4-CVE-980x653.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/4-CVE-480x320.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/5-CVE.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/5-CVE.jpg 1620w, https://www.aiellohotels.com/wp-content/uploads/2022/05/5-CVE-1280x853.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/5-CVE-980x653.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/5-CVE-480x320.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2024/01/3-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2024/01/3-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2024/01/3-copia-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/6-CVE.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/6-CVE.jpg 1650w, https://www.aiellohotels.com/wp-content/uploads/2022/05/6-CVE-1280x838.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/6-CVE-980x641.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/6-CVE-480x314.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/7-CVE.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/7-CVE.jpg 1703w, https://www.aiellohotels.com/wp-content/uploads/2022/05/7-CVE-1280x812.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/7-CVE-980x621.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/7-CVE-480x304.jpg 480w"
+          }
+        ]}
+        className="flex-1"
+      />
+      <div class="flex flex-col items-center gap-8 flex-1">
+        <p class="text-xl md:text-3xl text-secondary">
+          {m.duomoRoom1()} 
+        </p>
+        <div class="flex flex-col gap-1 max-w-[270px] text-base md:text-xl text-white">
+          <p>
+            {m.duomoRoom1Feature1()}
+          </p>
+        </div>
+        <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?hotel=169&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
+          {m.checkAvailability()}
+          <ChevronRight className="w-0 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+        </a>
+      </div>
+    </div> 
+    <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md gap-3 md:gap-0">
+      <ImageGallery 
+        client:load
+        images={[
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE-S.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE-S.jpg 1627w, https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE-S-1280x850.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE-S-980x651.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/1-CVE-S-480x319.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/2-CVE-S.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/2-CVE-S.jpg 1645w, https://www.aiellohotels.com/wp-content/uploads/2022/05/2-CVE-S-1280x840.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/2-CVE-S-980x643.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/2-CVE-S-480x315.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/3-CVE-S.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/3-CVE-S.jpg 1634w, https://www.aiellohotels.com/wp-content/uploads/2022/05/3-CVE-S-1280x846.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/3-CVE-S-980x648.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/3-CVE-S-480x317.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/4-CVE-S.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/4-CVE-S.jpg 1566w, https://www.aiellohotels.com/wp-content/uploads/2022/05/4-CVE-S-1280x883.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/4-CVE-S-980x676.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/4-CVE-S-480x331.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/5-CVE-S.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/5-CVE-S.jpg 1620w, https://www.aiellohotels.com/wp-content/uploads/2022/05/5-CVE-S-1280x853.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/5-CVE-S-980x653.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/5-CVE-S-480x320.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/6-CVE-S.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/6-CVE-S.jpg 1562w, https://www.aiellohotels.com/wp-content/uploads/2022/05/6-CVE-S-1280x885.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/6-CVE-S-980x678.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/6-CVE-S-480x332.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2024/01/2-copia-2.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2024/01/2-copia-2.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2024/01/2-copia-2-480x325.jpg 480w"
+          },
+          { 
+            src: "https://www.aiellohotels.com/wp-content/uploads/2022/05/8-CVE-S.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2022/05/8-CVE-S.jpg 1703w, https://www.aiellohotels.com/wp-content/uploads/2022/05/8-CVE-S-1280x812.jpg 1280w, https://www.aiellohotels.com/wp-content/uploads/2022/05/8-CVE-S-980x621.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2022/05/8-CVE-S-480x304.jpg 480w"
+          }
+        ]}
+        className="flex-1"
+      />
+      <div class="flex flex-col items-center gap-8 flex-1">
+        <p class="text-xl md:text-3xl text-secondary">
+          {m.duomoRoom2()}
+        </p>
+        <div class="flex flex-col gap-1 max-w-[270px] text-base md:text-xl text-white">
+          <p>
+            {m.duomoRoom2Feature1()}
+          </p>
+        </div>
+        <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?hotel=169&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
+          {m.checkAvailability()}
+          <ChevronRight className="w-0 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+        </a>
+      </div>
+    </div> 
+  </div> 
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">
+      {m.whatYouWillFind()}
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 justify-items-center rounded-md px-4 py-6 w-full max-w-screen-md">
+      <div class="flex flex-col items-center gap-3 flex-1">
+        <BedDouble className="w-16 h-16 text-primary" />
+        <p class="text-xl text-primary font-semibold">
+          {m.bedroom()}
+        </p>
+        <div class="flex flex-col md:flex-row gap-5">
+          <ul class="list-disc pl-4">
+            <li>{m.wifi()}</li>
+            <li>{m.airConditioner()}</li>
+            <li>{m.smartTV52()}</li>
+            <li>{m.drinkSet()}</li>
+            <li>{m.minibar()}</li>
+          </ul>
+          <ul class="list-disc pl-4">
+            <li>{m.pillows()}</li>
+            <li>{m.soundproofing()}</li>
+            <li>{m.safebox()}</li>
+            <li>{m.desk()}</li>
+            <li>{m.usb()}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-3 flex-1">
+        <BathIcon className="w-16 h-16 text-primary" />
+        <p class="text-xl text-primary font-semibold">
+          {m.bathroom()}
+        </p>
+        <ul class="list-disc pl-4">
+          <li>{m.courtesySet()}</li>
+          <li>{m.slippers()}</li>
+          <li>{m.hairdryer()}</li>
+          <li>{m.safeRope()}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">{m.duomoUsefulInfo()}</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 justify-items-center rounded-md px-4 py-6 w-full max-w-screen-xl">
+      <div class="flex flex-col items-center text-center gap-2 sm:col-span-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <CalendarCheck className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.checkInCheckOut()}</p>
+        <Image src={languageToArrivalImage[languageTag() ?? 'it']} alt="orari arrivo-partenza" width="632" height="192" class="w-[600px]" />
+        <p class="text-gray-500 text-base">
+          {m.duomoArrivalTime()}
+        </p>
+        <ul class="text-gray-500">
+          <li>{m.duomoEarlyCheckIn()}</li>
+          <li>{m.duomoSelfCheckIn()}</li>
+        </ul>
+        <p class="text-gray-500 text-base">
+          {m.duomoDepartureTime()}
+        </p>
+        <ul class="text-gray-500">
+          <li>{m.duomoLateCheckOut()}</li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <Coffee className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.breakfast()}</p>
+        <p class="text-gray-500 text-base">
+          {m.duomoBreakfastTime()}
+        </p>
+        <ul class="text-gray-500">
+          <li>{m.duomoRoomBreakfast()}</li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <ParkingCircle className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.partneredParking()}</p>
+        <p class="text-gray-500 text-base">
+          {m.duomoParkingName()}
+        </p>
+        <p class="text-gray-500 text-base">
+          {m.duomoParkingAddress()}
+        </p>
+        <p class="text-gray-500 text-base">
+          {m.duomoParkingHours()}
+        </p>
+        <p class="text-gray-500 text-base">
+          {m.duomoParkingPrice()}
+        </p>
+        <a href="tel:+390276000795" class="text-primary text-base font-bold flex flex-row items-center gap-1">
+          <Phone className="w-5 h-5 text-primary" />
+          +39 02 7600 0795
+        </a>
+        <p class="text-gray-500 text-base" set:html={m.duomoParkingNote()}></p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <BusFront className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.transportation()}</p>
+        <p class="text-gray-500 text-base" set:html={m.duomoTrainStation()}></p>
+        <p class="text-gray-500 text-base" set:html={m.duomoMetroStation()}></p>
+        <p class="text-gray-500 text-base" set:html={m.duomoFromMalpensa()}></p>
+        <p class="text-gray-500 text-base" set:html={m.duomoFromBergamo()}></p>
+        <p class="text-gray-500 text-base" set:html={m.duomoFromLinate()}></p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <Plane className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.duomoAirportShuttle()}</p>
+        <p class="text-gray-500 text-base">
+          {m.reservationRequired()}
+        </p>
+        <p class="text-gray-500 text-base">
+          {m.duomoToMalpensa()}
+        </p>
+        <p class="text-gray-500 text-base">
+          {m.duomoToBergamo()}
+        </p>
+        <p class="text-gray-500 text-base">
+          {m.duomoToLinate()}
+        </p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <Luggage className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.luggageStorage()}</p>
+        <p class="text-gray-500 text-base">
+          {m.duomoBaggage()}
+        </p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <Baby className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.crib()}</p>
+        <p class="text-gray-500 text-base">
+          {m.cribAvailability()}
+        </p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <PawPrint className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.pets()}</p>
+        <p class="text-gray-500 text-base">
+          {m.petPolicy()}
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?hotel=169&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit mx-auto">
+    {m.checkAvailability()}
+    <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+  </a>
+</Layout>
+
+<style>
+  .bg-hero {
+    @apply bg-cover bg-no-repeat relative;
+		background-image: linear-gradient(180deg, #063661 0%,rgba(43,78,136,0.67) 54%), url("https://www.aiellohotels.com/wp-content/uploads/2022/05/duomo.jpg");
+    background-position: 50%;
+	}
+
+  .pattern {
+    @apply absolute mt-auto w-full bottom-0 h-[100px] bg-no-repeat bg-cover z-[1] scale-y-[-1] scale-x-[1];
+    background-size: 100% 100px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDBweCIgdmlld0JveD0iMCAwIDEyODAgMTQwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGZpbGw9IiNjNDk5NmMiPjxwYXRoIGQ9Ik0xMjgwIDE0MFYwSDBsMTI4MCAxNDB6IiBmaWxsLW9wYWNpdHk9Ii41Ii8+PHBhdGggZD0iTTEyODAgOThWMEgwbDEyODAgOTh6Ii8+PC9nPjwvc3ZnPg==);
+  }
+</style>

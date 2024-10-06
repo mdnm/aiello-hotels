@@ -1,0 +1,401 @@
+---
+import { Image } from 'astro:assets';
+import { Baby, BathIcon, BedDouble, BusFront, CalendarCheck, ChevronRight, Coffee, Luggage, ParkingCircle, PawPrint, Plane } from 'lucide-react';
+import { GoogleMap } from '../../components/GoogleMap.tsx';
+import { ImageGallery } from '../../components/ImageGallery.tsx';
+import Layout from '../../layouts/Layout.astro';
+import * as m from '../../paraglide/messages';
+import { availableLanguageTags, languageTag } from '../../paraglide/runtime';
+import { languageToArrival2Image } from '../../utils/commons';
+
+export function getStaticPaths() {
+  return availableLanguageTags.map((lang) => ({ params: { lang } }));
+}
+
+const paraglide = Astro.locals.paraglide;
+
+const locations = [
+  { 
+    lat: 45.4349991,
+    lng: 9.1787493,
+    title: m.viaPalmieriDescription(),
+    address: m.viaPalmieriAddress(),
+    path: '/via-palmieri',
+    image: 'https://www.aiellohotels.com/wp-content/uploads/2021/03/SE6-copia-300x203.jpg',
+  },
+];
+
+---
+
+<Layout 
+  title={m.viaPalmieriTitle()}
+  description={m.viaPalmieriPageDescription()}
+  includeContactForm
+>
+  <div class="bg-hero w-full flex flex-col items-center gap-10 text-white text-center py-56 z-0">
+    <h1 class="text-3xl md:text-5xl font-serif text-secondary uppercase" set:html={m.viaPalmieriHeroTitle()}></h1>
+    <p class="text-xl md:text-3xl font-thin">{m.viaPalmieriHeroDescription()}</p>
+    <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group">
+      {m.checkAvailability()}
+      <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+    </a>
+    <div class="pattern"></div>
+  </div>
+  <div class="w-full bg-primary text-secondary text-center py-7">
+    <p class="text-xl md:text-4xl mb-1">{m.viaPalmieriPosition()}</p>
+    <p class="text-lg md:text-3xl">{m.viaPalmieriPageAddress()}</p>
+  </div>
+  <GoogleMap 
+    client:load
+    locations={locations}
+    lang={paraglide.lang}
+    region={"IT" /** TODO: update  */}
+  />
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-6 md:gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">{m.viaPalmieriWhy()}</p>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      {m.rooms()}
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          {m.viaPalmieriReview1()}
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          {m.viaPalmieriReview1Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/11/googleplace-60.png" alt="Booking.com" width={32} height={32} />
+        </p>
+      </div>
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2021/03/SE-2-copia.jpg" alt="san Babila vista" srcset="https://www.aiellohotels.com/wp-content/uploads/2021/03/SE-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/SE-2-copia-480x325.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 850px, 100vw">
+      </div>
+    </div>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      {m.position()}
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2020/11/posizionePalmieri.jpg" alt="san Babila camere" srcset="https://www.aiellohotels.com/wp-content/uploads/2020/11/posizionePalmieri.jpg 1024w, https://www.aiellohotels.com/wp-content/uploads/2020/11/posizionePalmieri-980x654.jpg 980w, https://www.aiellohotels.com/wp-content/uploads/2020/11/posizionePalmieri-480x320.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1024px, 100vw">
+      </div>
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          {m.viaPalmieriReview2()}
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          {m.viaPalmieriReview2Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/tripadvisor-50-1.png" alt="Trip advisor" width={32} height={32} />
+        </p>
+      </div>
+    </div>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      {m.hospitality()}
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          {m.viaPalmieriReview3()}
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          {m.viaPalmieriReview3Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/11/googleplace-60.png" alt="Trip advisor" width={32} height={32} />
+        </p>
+      </div>
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2020/11/accoglienzaPalmieri.jpg" alt="san Babila posizione" srcset="https://www.aiellohotels.com/wp-content/uploads/2020/11/accoglienzaPalmieri.jpg 706w, https://www.aiellohotels.com/wp-content/uploads/2020/11/accoglienzaPalmieri-480x288.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 706px, 100vw">
+      </div>
+    </div>
+    <p class="text-primary text-xl md:text-3xl mb-2 border-secondary border-b-2">
+      {m.cleanliness()}
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between md:gap-14">
+      <div class="flex-1">
+        <Image width={850} height={576} class="rounded-md" src="https://www.aiellohotels.com/wp-content/uploads/2020/11/puliziaPalmieri.jpg" alt="san Babila accoglienza" srcset="https://www.aiellohotels.com/wp-content/uploads/2020/11/puliziaPalmieri.jpg 640w, https://www.aiellohotels.com/wp-content/uploads/2020/11/puliziaPalmieri-480x255.jpg 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 640px, 100vw">
+      </div>
+      <div class="flex-1">
+        <p class="text-gray-500 text-base md:text-lg mb-1">
+          {m.viaPalmieriReview4()}
+        </p>
+        <p class="text-gray-500 text-base md:text-lg flex flex-row items-center gap-1">
+          {m.viaPalmieriReview4Author()} <Image src="https://www.aiellohotels.com/wp-content/uploads/2020/10/tripadvisor-50-1.png" alt="Booking.com" width={32} height={32} />
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">{m.chooseRoomType()}</p>
+    <div class="flex flex-col md:flex-row justify-between items-center bg-primary rounded-md px-4 py-6 w-full max-w-screen-md gap-3 md:gap-0">
+      <ImageGallery 
+        client:load
+        images={[
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE6-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE6-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/SE6-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE4-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE4-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/SE4-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE-1-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE-1-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/SE-1-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/IMG_0371-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/IMG_0371-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/IMG_0371-2-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/101_0244-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/101_0244-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/101_0244-2-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/7-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/7-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/7-2-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/5-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/5-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/5-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/IMG_0051-1-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/IMG_0051-1-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/IMG_0051-1-2-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/IMG_3231-web-1-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/IMG_3231-web-1-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/IMG_3231-web-1-2-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/11-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/11-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/11-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/101_0252-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/101_0252-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/101_0252-2-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/1-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/1-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/1-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE3-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE3-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/SE3-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/6-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/6-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/6-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/2-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/9-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/9-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/9-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE7-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE7-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/SE7-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/SE-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/12-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/12-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/12-2-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/13-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/13-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/13-2-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE-2-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/SE-2-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/SE-2-copia-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/10-copia-1.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/10-copia-1.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/10-copia-1-480x325.jpg 480w"
+          },
+          {
+            src: "https://www.aiellohotels.com/wp-content/uploads/2021/03/8-copia.jpg",
+            srcSet: "https://www.aiellohotels.com/wp-content/uploads/2021/03/8-copia.jpg 850w, https://www.aiellohotels.com/wp-content/uploads/2021/03/8-copia-480x325.jpg 480w"
+          }
+        ]}
+        className="flex-1"
+      />
+      <div class="flex flex-col items-center gap-8 flex-1">
+        <p class="text-xl md:text-3xl text-secondary">
+          {m.viaPalmieriRoom1()} 
+        </p>
+        <div class="flex flex-col gap-1 max-w-[270px] text-base md:text-xl text-white">
+          <p>
+            {m.viaPalmieriRoom1Feature1()}
+          </p>
+          <p>
+            {m.viaPalmieriRoom1Feature2()}
+          </p>
+          <p>
+            {m.viaPalmieriRoom1Feature3()}
+          </p>
+          <p>
+            {m.viaPalmieriRoom1Feature4()}
+          </p>
+        </div>
+        <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary border border-primary hover:bg-primary hover:text-secondary hover:border-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
+          {m.checkAvailability()}
+          <ChevronRight className="w-0 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+        </a>
+      </div>
+    </div> 
+  </div> 
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">
+      {m.whatYouWillFind()}
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 justify-items-center rounded-md px-4 py-6 w-full max-w-screen-md">
+      <div class="flex flex-col items-center gap-3 flex-1">
+        <BedDouble className="w-16 h-16 text-primary" />
+        <p class="text-xl text-primary font-semibold">
+          {m.bedroom()}
+        </p>
+        <div class="flex flex-col md:flex-row gap-5">
+          <ul class="list-disc pl-4">
+            <li>{m.wifi()}</li>
+            <li>{m.airConditioner()}</li>
+            <li>{m.minibar()}</li>
+            <li>{m.kettle()}</li>
+          </ul>
+          <ul class="list-disc pl-4">
+            <li>{m.TVHD()}</li>
+            <li>{m.safebox()}</li>
+            <li>{m.welcomingDrink()}</li>
+            <li>{m.relaxingArea()}</li>
+            <li>{m.balcony()}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-3 flex-1">
+        <BathIcon className="w-16 h-16 text-primary" />
+        <p class="text-xl text-primary font-semibold">
+          {m.bathroom()}
+        </p>
+        <ul class="list-disc pl-4">
+          <li>{m.courtesySet()}</li>
+          <li>{m.slippers()}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">{m.viaPalmieriUsefulInfo()}</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 justify-items-center rounded-md px-4 py-6 w-full max-w-screen-xl">
+      <div class="flex flex-col items-center text-center gap-2 sm:col-span-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <CalendarCheck className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.checkInCheckOut()}</p>
+        <Image src={languageToArrival2Image[languageTag() ?? 'it']} alt="orari arrivo-partenza" width="632" height="192" class="w-[600px]" />
+        <p class="text-gray-500 text-base">
+          {m.viaPalmieriArrivalTime()}
+        </p>
+        <ul class="text-gray-500">
+          <li>{m.viaPalmieriEarlyCheckIn()}</li>
+          <li>{m.viaPalmieriSelfCheckIn()}</li>
+        </ul>
+        <p class="text-gray-500 text-base">
+          {m.viaPalmieriDepartureTime()}
+        </p>
+        <ul class="text-gray-500">
+          <li>{m.viaPalmieriLateCheckOut()}</li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <Coffee className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.breakfast()}</p>
+        <p class="text-gray-500 text-base">
+          {m.viaPalmieriBreakfastTime()}
+        </p>
+        <ul class="text-gray-500">
+          <li>{m.viaPalmieriRoomBreakfast()}</li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <ParkingCircle className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.partneredParking()}</p>
+        <p class="text-gray-500 text-base">
+          {m.viaPalmieriParkingName()}
+        </p>
+        <p class="text-gray-500 text-base">
+          {m.viaPalmieriParkingPrice()}
+        </p>
+        <p class="text-gray-500 text-base">
+          {m.viaPalmieriParking2Price()}
+        </p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <BusFront className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.transportation()}</p>
+        <p class="text-gray-500 text-base" set:html={m.viaPalmieriMetroStation()}></p>
+        <p class="text-gray-500 text-base" set:html={m.viaPalmieriTramStation()}></p>
+        <p class="text-gray-500 text-base" set:html={m.viaPalmieriFromMalpensa()}></p>
+        <p class="text-gray-500 text-base" set:html={m.viaPalmieriFromBergamo()}></p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <Plane className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.viaPalmieriAirportShuttle()}</p>
+        <p class="text-gray-500 text-base">
+          {m.reservationRequired()}
+        </p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <Luggage className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.luggageStorage()}</p>
+        <p class="text-gray-500 text-base">
+          {m.free()}
+        </p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <Baby className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.crib()}</p>
+        <p class="text-gray-500 text-base">
+          {m.cribAvailability()}
+        </p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-2">
+        <div class="rounded-full bg-secondary p-3 self-center">
+          <PawPrint className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg self-center">{m.pets()}</p>
+        <p class="text-gray-500 text-base">
+          {m.petPolicy()}
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit mx-auto">
+    {m.checkAvailability()}
+    <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+  </a>
+</Layout>
+
+<style>
+  .bg-hero {
+    @apply bg-cover bg-no-repeat relative;
+		background-image: linear-gradient(180deg, #063661 0%,rgba(43,78,136,0.67) 54%), url("https://www.aiellohotels.com/wp-content/uploads/2020/11/Palmieri-AIELLO-SUITES-scaled.jpg");
+    background-position: 50%;
+	}
+
+  .pattern {
+    @apply absolute mt-auto w-full bottom-0 h-[100px] bg-no-repeat bg-cover z-[1] scale-y-[-1] scale-x-[1];
+    background-size: 100% 100px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDBweCIgdmlld0JveD0iMCAwIDEyODAgMTQwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGZpbGw9IiNjNDk5NmMiPjxwYXRoIGQ9Ik0xMjgwIDE0MFYwSDBsMTI4MCAxNDB6IiBmaWxsLW9wYWNpdHk9Ii41Ii8+PHBhdGggZD0iTTEyODAgOThWMEgwbDEyODAgOTh6Ii8+PC9nPjwvc3ZnPg==);
+  }
+</style>

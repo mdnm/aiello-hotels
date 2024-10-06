@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import * as m from '../../paraglide/messages.js';
+import { availableLanguageTags } from '../../paraglide/runtime.js';
+
+export function getStaticPaths() {
+  return availableLanguageTags.map((lang) => ({ params: { lang } }));
+}
+
+const paraglide = Astro.locals.paraglide;
+---
+
+<Layout 
+  title={m.cookiePolicyTitle()}
+  description={m.cookiePolicyDescription()}
+  includeContact={false}
+  includePayments={false}
+>
+  <div class="w-full max-w-screen-lg mx-auto flex flex-col items-start gap-2 text-start z-0 p-3">
+    <h1 class="text-primary text-4xl font-bold text-center pt-20">{m.cookiePolicy()}</h1>
+    <div class="flex flex-col gap-3 text-gray-800 text-xl font-bold" set:html={m.cookieUsage()}></div>
+    <div class="flex flex-col gap-3 text-gray-600 text-lg" set:html={m.cookieUsageDescription()}></div>
+    <div class="flex flex-col gap-3 text-gray-800 text-xl font-bold" set:html={m.cookieExplanation()}></div>
+    <div class="flex flex-col gap-3 text-gray-600 text-lg" set:html={m.cookieExplanationDescription()}></div>
+    <div class="flex flex-col gap-3 text-gray-800 text-xl font-bold" set:html={m.cookieWebsiteUsage()}></div>
+    <div class="flex flex-col gap-3 text-gray-600 text-lg" set:html={m.cookieWebsiteUsageDescription()}></div>
+    <div class="flex flex-col gap-3 text-gray-800 text-xl font-bold" set:html={m.thirdPartyCookies()}></div>
+    <div class="flex flex-col gap-3 text-gray-600 text-lg" set:html={m.thirdPartyCookiesDescription()}></div>
+    <div class="flex flex-col gap-3 text-gray-800 text-xl font-bold" set:html={m.cookieDisable()}></div>
+    <div class="flex flex-col gap-3 text-gray-600 text-lg" set:html={m.cookieDisableDescription()}></div>
+    <div class="flex flex-col gap-3 text-gray-600 text-lg" set:html={m.cookieOwner()}></div>
+    <div class="flex flex-col gap-3 text-gray-600 text-lg" set:html={m.cookieRights()}></div>
+  </div>
+</Layout>
+
+<style>
+  .bg-hero {
+    @apply bg-cover bg-no-repeat relative;
+		background-image: linear-gradient(180deg, #063661 0%,rgba(43,78,136,0.67) 54%), url("https://www.aiellohotels.com/wp-content/uploads/2020/10/Milano-home.png");
+    background-position: 50%;
+	}
+
+  .pattern {
+    @apply absolute mt-auto w-full bottom-0 h-[100px] bg-no-repeat bg-cover z-[1] scale-y-[-1] scale-x-[1];
+    background-size: 100% 100px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDBweCIgdmlld0JveD0iMCAwIDEyODAgMTQwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGZpbGw9IiNjNDk5NmMiPjxwYXRoIGQ9Ik0xMjgwIDE0MFYwSDBsMTI4MCAxNDB6IiBmaWxsLW9wYWNpdHk9Ii41Ii8+PHBhdGggZD0iTTEyODAgOThWMEgwbDEyODAgOTh6Ii8+PC9nPjwvc3ZnPg==);
+  }
+</style>
