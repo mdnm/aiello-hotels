@@ -9,6 +9,8 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://mdnm.github.io",
+  base: "aiello-hotels",
   i18n: {
     locales: ['it', 'en', 'fr', 'es', 'pt-br'],
     defaultLocale: 'it',

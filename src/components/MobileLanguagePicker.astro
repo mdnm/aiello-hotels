@@ -3,7 +3,7 @@ import * as m from '../paraglide/messages';
 import { availableLanguageTags, languageTag } from '../paraglide/runtime';
 
 const makeUrlForLanguage = (lang: string) =>
-  `/${lang}${Astro.url.pathname.replace(`/${languageTag()}`, '')}`;
+  `/aiello-hotels/${lang}${Astro.url.pathname.replace(`/${languageTag()}`, '')}`;
 ---
 
 <ul class="flex flex-row justify-center items-center gap-4">
