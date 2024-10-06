@@ -3,7 +3,8 @@ import { CalendarCheck, ChevronRight, CircleDollarSign, Gift, HandCoins, Pointer
 import { GoogleMap } from '../components/GoogleMap.tsx';
 import Layout from '../layouts/Layout.astro';
 import * as m from '../paraglide/messages';
-import { setLanguageTag } from '../paraglide/runtime';
+import { languageTag, setLanguageTag } from '../paraglide/runtime';
+import { languageToBookingSiteLocale } from '../utils/commons';
 
 setLanguageTag('it');
 
@@ -15,7 +16,7 @@ const locations = [
     lng: 9.197540,
     title: m.sanBabilaDescription(),
     address: m.sanBabilaAddress(),
-    path: '/san-babila',
+    path: `${Astro.url}san-babila`,
     image: 'https://www.aiellohotels.com/wp-content/uploads/2021/03/san-Babila_-10-copia-3-300x203.jpg',
   },
   { 
@@ -23,7 +24,7 @@ const locations = [
     lng: 9.196060,
     title: m.duomoDescription(),
     address: m.duomoAddress(),
-    path: '/duomo',
+    path: `${Astro.url}duomo`,
     image: 'https://www.aiellohotels.com/wp-content/uploads/2022/06/Stanza-Duomo-e1654987293148.jpg',
   },
   { 
@@ -31,7 +32,7 @@ const locations = [
     lng: 9.205020,
     title: m.stazioneCentraleDescription(),
     address: m.stazioneCentraleAddress(),
-    path: '/stazione-centrale',
+    path: `${Astro.url}stazione-centrale`,
     image: 'https://www.aiellohotels.com/wp-content/uploads/2021/06/vitruvio-3.jpg',
   },
   { 
@@ -39,7 +40,7 @@ const locations = [
     lng: 9.171510,
     title: m.viaAusonioDescription(),
     address: m.viaAusonioAddress(),
-    path: '/via-ausonio',
+    path: `${Astro.url}via-ausonio`,
     image: 'https://www.aiellohotels.com/wp-content/uploads/2021/03/stanza-4-1-g-2-copia-300x203.jpg',
   },
   { 
@@ -47,7 +48,7 @@ const locations = [
     lng: 9.178330,
     title: m.viaMonteganiDescription(),
     address: m.viaMonteganiAddress(),
-    path: '/via-montegani',
+    path: `${Astro.url}via-montegani`,
     image: 'https://www.aiellohotels.com/wp-content/uploads/2021/03/10-2-copia-300x216.jpg',
   },
   { 
@@ -55,7 +56,7 @@ const locations = [
     lng: 9.1787493,
     title: m.viaPalmieriDescription(),
     address: m.viaPalmieriAddress(),
-    path: '/via-palmieri',
+    path: `${Astro.url}via-palmieri`,
     image: 'https://www.aiellohotels.com/wp-content/uploads/2021/03/SE6-copia-300x203.jpg',
   },
 ];
@@ -69,7 +70,7 @@ const locations = [
   <div class="bg-hero w-full flex flex-col items-center gap-10 text-white text-center py-56 z-0">
     <h1 class="text-3xl md:text-5xl font-serif text-secondary uppercase">Aiello Hotels</h1>
     <p class="text-xl md:text-3xl font-thin" set:html={m.homeHero()}></p>
-    <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group">
+    <a href={`https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=${languageToBookingSiteLocale[languageTag() ?? 'it']}&stile=aiellosuite.css`} target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group">
       {m.checkAvailability()}
       <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
     </a>
@@ -150,7 +151,7 @@ const locations = [
         <p class="text-primary text-lg">{m.freeMinibar()}</p>
       </div>
     </div>
-    <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
+    <a href={`https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=${languageToBookingSiteLocale[languageTag() ?? 'it']}&stile=aiellosuite.css`} target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
       {m.checkAvailability()}
       <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
     </a>

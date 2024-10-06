@@ -1,16 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 import { Baby, BathIcon, BedDouble, BusFront, CalendarCheck, Camera, ChevronRight, Coffee, Luggage, ParkingCircle, PawPrint, Phone, Plane } from 'lucide-react';
-import { GoogleMap } from '../../components/GoogleMap.tsx';
-import { ImageGallery } from '../../components/ImageGallery.tsx';
-import Layout from '../../layouts/Layout.astro';
-import * as m from '../../paraglide/messages';
-import { availableLanguageTags, languageTag } from '../../paraglide/runtime';
-import { languageToArrivalImage, languageToBookingSiteLocale } from '../../utils/commons';
+import { GoogleMap } from '../components/GoogleMap.tsx';
+import { ImageGallery } from '../components/ImageGallery.tsx';
+import Layout from '../layouts/Layout.astro';
+import * as m from '../paraglide/messages';
+import { languageTag, setLanguageTag } from '../paraglide/runtime';
+import { languageToArrivalImage, languageToBookingSiteLocale } from '../utils/commons';
 
-export function getStaticPaths() {
-  return availableLanguageTags.map((lang) => ({ params: { lang } }));
-}
+setLanguageTag('it');
 
 const paraglide = Astro.locals.paraglide;
 

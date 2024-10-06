@@ -29,3 +29,11 @@ export const languageToArrival3Image = {
   fr: 'https://www.aiellohotels.com/wp-content/uploads/2021/02/arrivi-partenze-3-fr.jpg',
   ['pt-br']: 'https://www.aiellohotels.com/wp-content/uploads/2021/01/arrivi-partenze-3-en.jpg',
 }
+
+export const languageToBookingSiteLocale = {
+  it: 'I',
+  en: 'UK',
+  es: 'E',
+  fr: 'F',
+  ['pt-br']: 'UK',
+}
