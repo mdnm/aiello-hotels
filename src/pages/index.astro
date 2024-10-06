@@ -1,3 +1,172 @@
 ---
-Astro.redirect('/it') // Redirect to the Italian version of the website
+import { CalendarCheck, ChevronRight, CircleDollarSign, Gift, HandCoins, Pointer, ShieldCheck } from 'lucide-react';
+import { GoogleMap } from '../components/GoogleMap.tsx';
+import Layout from '../layouts/Layout.astro';
+import * as m from '../paraglide/messages';
+import { setLanguageTag } from '../paraglide/runtime';
+
+setLanguageTag('it');
+
+const paraglide = Astro.locals.paraglide;
+
+const locations = [
+  { 
+    lat: 45.467040,
+    lng: 9.197540,
+    title: m.sanBabilaDescription(),
+    address: m.sanBabilaAddress(),
+    path: '/san-babila',
+    image: 'https://www.aiellohotels.com/wp-content/uploads/2021/03/san-Babila_-10-copia-3-300x203.jpg',
+  },
+  { 
+    lat: 45.465680,
+    lng: 9.196060,
+    title: m.duomoDescription(),
+    address: m.duomoAddress(),
+    path: '/duomo',
+    image: 'https://www.aiellohotels.com/wp-content/uploads/2022/06/Stanza-Duomo-e1654987293148.jpg',
+  },
+  { 
+    lat: 45.483400,
+    lng: 9.205020,
+    title: m.stazioneCentraleDescription(),
+    address: m.stazioneCentraleAddress(),
+    path: '/stazione-centrale',
+    image: 'https://www.aiellohotels.com/wp-content/uploads/2021/06/vitruvio-3.jpg',
+  },
+  { 
+    lat: 45.457840,
+    lng: 9.171510,
+    title: m.viaAusonioDescription(),
+    address: m.viaAusonioAddress(),
+    path: '/via-ausonio',
+    image: 'https://www.aiellohotels.com/wp-content/uploads/2021/03/stanza-4-1-g-2-copia-300x203.jpg',
+  },
+  { 
+    lat: 45.436500,
+    lng: 9.178330,
+    title: m.viaMonteganiDescription(),
+    address: m.viaMonteganiAddress(),
+    path: '/via-montegani',
+    image: 'https://www.aiellohotels.com/wp-content/uploads/2021/03/10-2-copia-300x216.jpg',
+  },
+  { 
+    lat: 45.4349991,
+    lng: 9.1787493,
+    title: m.viaPalmieriDescription(),
+    address: m.viaPalmieriAddress(),
+    path: '/via-palmieri',
+    image: 'https://www.aiellohotels.com/wp-content/uploads/2021/03/SE6-copia-300x203.jpg',
+  },
+];
+
 ---
+
+<Layout 
+  title={m.homePageTitle()}
+  description={m.homePageDescription()}
+>
+  <div class="bg-hero w-full flex flex-col items-center gap-10 text-white text-center py-56 z-0">
+    <h1 class="text-3xl md:text-5xl font-serif text-secondary uppercase">Aiello Hotels</h1>
+    <p class="text-xl md:text-3xl font-thin" set:html={m.homeHero()}></p>
+    <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group">
+      {m.checkAvailability()}
+      <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+    </a>
+    <div class="pattern"></div>
+  </div>
+  <div class="w-full bg-primary text-secondary text-center py-7">
+    <p class="text-xl md:text-4xl">
+      {m.selectStructure()}
+    </p>
+  </div>
+  <GoogleMap 
+    client:load
+    locations={locations}
+    lang={paraglide.lang}
+    region={"IT" /** TODO: update  */}
+  />
+  <div class="mx-auto px-3 py-14 w-full max-w-screen-lg flex flex-col items-center justify-center gap-10">
+    <p class="text-primary text-2xl md:text-4xl text-center">
+      {m.whyBookDirectly()}
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 justify-items-center">
+      <div class="flex flex-col items-center gap-2 max-w-[250px] text-center">
+        <div class="rounded-full bg-secondary p-3">
+          <CircleDollarSign className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg">{m.bestPriceGuaranteed()}</p>
+        <p class="text-gray-500 text-base">
+          {m.bestPriceGuaranteedDescription()}
+        </p>
+      </div>
+      <div class="flex flex-col items-center gap-2 max-w-[250px] text-center">
+        <div class="rounded-full bg-secondary p-3">
+          <HandCoins className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg">
+          {m.freeCancellation()}
+        </p>
+        <p class="text-gray-500 text-base">
+          {m.freeCancellationDescription()}
+        </p>
+      </div>
+      <div class="flex flex-col items-center gap-2 max-w-[250px] text-center">
+        <div class="rounded-full bg-secondary p-3">
+          <ShieldCheck className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg">
+          {m.noPenalty()}
+        </p>
+        <p class="text-gray-500 text-base" set:html={m.noPenaltyDescription()}>
+        </p>
+      </div>
+      <div class="flex flex-col items-center gap-2 max-w-[250px] text-center">
+        <div class="rounded-full bg-secondary p-3">
+          <Pointer className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg">
+          {m.onlineCheckIn()}
+        </p>
+        <p class="text-gray-500 text-base">
+          {m.onlineCheckInDescription()}
+        </p>
+      </div>
+      <div class="flex flex-col items-center gap-2 max-w-[250px] text-center">
+        <div class="rounded-full bg-secondary p-3">
+          <CalendarCheck className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg">
+          {m.flexibleRates()}
+        </p>
+        <p class="text-gray-500 text-base">
+          {m.flexibleRatesDescription()}
+        </p>
+      </div>
+      <div class="flex flex-col items-center gap-2 max-w-[250px] text-center">
+        <div class="rounded-full bg-secondary p-3">
+          <Gift className="w-10 h-10 text-primary" />
+        </div>
+        <p class="text-primary text-lg">{m.freeMinibar()}</p>
+      </div>
+    </div>
+    <a href="https://pay.syshotelonline.it/reserva/sc_scheda.php?catena=8&hotel=97&lingua=I&stile=aiellosuite.css" target="_blank" class="bg-secondary text-primary hover:bg-primary hover:text-secondary transition-all duration-200 uppercase text-lg md:text-xl py-3 px-5 rounded-md flex flex-row items-center gap-2 group w-fit">
+      {m.checkAvailability()}
+      <ChevronRight className="w-0 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:w-5 h-5 transition-all duration-200" />
+    </a>
+  </div>
+</Layout>
+
+<style>
+  .bg-hero {
+    @apply bg-cover bg-no-repeat relative;
+		background-image: linear-gradient(180deg, #063661 0%,rgba(43,78,136,0.67) 54%), url("https://www.aiellohotels.com/wp-content/uploads/2020/10/Milano-home.png");
+    background-position: 50%;
+	}
+
+  .pattern {
+    @apply absolute mt-auto w-full bottom-0 h-[100px] bg-no-repeat bg-cover z-[1] scale-y-[-1] scale-x-[1];
+    background-size: 100% 100px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDBweCIgdmlld0JveD0iMCAwIDEyODAgMTQwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGZpbGw9IiNjNDk5NmMiPjxwYXRoIGQ9Ik0xMjgwIDE0MFYwSDBsMTI4MCAxNDB6IiBmaWxsLW9wYWNpdHk9Ii41Ii8+PHBhdGggZD0iTTEyODAgOThWMEgwbDEyODAgOTh6Ii8+PC9nPjwvc3ZnPg==);
+  }
+</style>
